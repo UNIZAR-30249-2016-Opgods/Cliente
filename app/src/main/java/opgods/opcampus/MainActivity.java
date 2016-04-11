@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                setTitle(R.string.parking);
                 mMap = googleMap;
                 int zoomLevel = 16;
 
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
             return true;
         }
 
@@ -122,16 +123,19 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_parking) {
+            setTitle(R.string.parking);
             int zoomLevel = 16;
 
             LatLng adaByron = new LatLng(41.683662, -0.887611);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
         } else if (id == R.id.nav_teacher) {
+            setTitle(R.string.teachers);
             int zoomLevel = 19;
 
             LatLng adaByron = new LatLng(41.683982, -0.888867);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
         } else if (id == R.id.nav_cafe) {
+            setTitle(R.string.cafe);
             int zoomLevel = 20;
 
             LatLng adaByron = new LatLng(41.683646, -0.888620);
