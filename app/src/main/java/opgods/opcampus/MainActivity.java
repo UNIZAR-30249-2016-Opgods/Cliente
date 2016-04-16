@@ -20,15 +20,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.maps.android.kml.KmlLayer;
+import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.android.gms.maps.model.TileProvider;
+import com.google.maps.android.geojson.GeoJsonLayer;
 
 import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,8 +54,9 @@ public class MainActivity extends AppCompatActivity
 
                 LatLng adaByron = new LatLng(41.683662, -0.887611);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
-                //new GeoJsonAdapter(MainActivity.this).execute();
-                setLayer(new JSONObject());
+                TileProvider wmsTileProvider = TileProviderFactory.getOsgeoWmsTileProvider();
+                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(wmsTileProvider));
+                Log.e("WMS", "capa superpuesta");
             }
         });
 
@@ -144,7 +141,6 @@ public class MainActivity extends AppCompatActivity
         mapView.onSaveInstanceState(outState);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -216,21 +212,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setLayer(JSONObject jsonObject) {
-        File file = new File("/storage/emulated/0/Download/mapa.kml");
-        try {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            try {
-                KmlLayer layer = new KmlLayer(mMap, fileInputStream, getApplicationContext());
-                layer.addLayerToMap();
-                Log.e("KML", "Mapa cargado");
-            } catch (XmlPullParserException | IOException e) {
-                e.printStackTrace();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        /**GeoJsonLayer layer = new GeoJsonLayer(mMap, jsonObject);
+        GeoJsonLayer layer = new GeoJsonLayer(mMap, jsonObject);
         layer.addLayerToMap();
-        Log.e("OP", "JSON añadido");**/
+        Log.e("OP", "JSON añadido");
     }
 }
