@@ -1,42 +1,34 @@
 package opgods.opcampus;
 
-import android.util.Log;
+import com.google.android.gms.maps.model.TileProvider;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Locale;
 
 public class TileProviderFactory {
+    private static final String GEOSERVER_FORMAT = "http://geoserver-naxsel.rhcloud.com/labis/wms" +
+            "?service=WMS" +
+            "&version=1.1.0" +
+            "&request=GetMap" +
+            "&layers=labis:prueba_ada" +
+            "&styles=" +
+            "&bbox=%f,%f,%f,%f" +
+            "&width=768" +
+            "&height=654" +
+            "&srs=EPSG:3857" +
+            "&format=image/png" +
+            "&transparent=true";
 
-    public static WMSTileProvider getOsgeoWmsTileProvider() {
-
-
-        //This is configured for:
-        // http://beta.sedac.ciesin.columbia.edu/maps/services
-        // (TODO check that this WMS service still exists at the time you try to run this demo,
-        // if it doesn't, find another one that supports EPSG:900913
-        final String WMS_FORMAT_STRING =
-                "http://sedac.ciesin.columbia.edu/geoserver/wms" +
-                        "?service=WMS" +
-                        "&version=1.1.1" +
-                        "&request=GetMap" +
-                        "&layers=gpw-v3-population-density_2000" +
-                        "&bbox=%f,%f,%f,%f" +
-                        "&width=256" +
-                        "&height=256" +
-                        "&srs=EPSG:900913" +
-                        "&format=image/png" +
-                        "&transparent=true";
-
-
-        return new WMSTileProvider(256,256) {
+    // return a geoserver wms tile layer
+    public static TileProvider getTileProvider() {
+        return new WMSTileProvider(768, 654) {
 
             @Override
             public synchronized URL getTileUrl(int x, int y, int zoom) {
                 double[] bbox = getBoundingBox(x, y, zoom);
-                String s = String.format(Locale.US, WMS_FORMAT_STRING, bbox[MINX],
+                String s = String.format(Locale.US, GEOSERVER_FORMAT, bbox[MINX],
                         bbox[MINY], bbox[MAXX], bbox[MAXY]);
-                Log.d("WMSDEMO", s);
                 URL url = null;
                 try {
                     url = new URL(s);

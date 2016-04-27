@@ -2,8 +2,6 @@ package opgods.opcampus;
 
 import com.google.android.gms.maps.model.UrlTileProvider;
 
-import java.net.URLEncoder;
-
 public abstract class WMSTileProvider extends UrlTileProvider {
 
     // Web Mercator n/w corner of the map.
@@ -21,20 +19,9 @@ public abstract class WMSTileProvider extends UrlTileProvider {
     protected static final int MINY = 2;
     protected static final int MAXY = 3;
 
-    // cql filters
-    private String cqlString = "";
-
     // Construct with tile size in pixels, normally 256, see parent class.
     public WMSTileProvider(int x, int y) {
         super(x, y);
-    }
-
-    protected String getCql() {
-        return URLEncoder.encode(cqlString);
-    }
-
-    public void setCql(String c) {
-        cqlString = c;
     }
 
     // Return a web Mercator bounding box given tile x/y indexes and a zoom
