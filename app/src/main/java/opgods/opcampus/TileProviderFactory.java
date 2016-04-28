@@ -1,5 +1,7 @@
 package opgods.opcampus;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.model.TileProvider;
 
 import java.net.MalformedURLException;
@@ -14,21 +16,22 @@ public class TileProviderFactory {
             "&layers=labis:prueba_ada" +
             "&styles=" +
             "&bbox=%f,%f,%f,%f" +
-            "&width=768" +
-            "&height=654" +
-            "&srs=EPSG:3857" +
+            "&width=512" +
+            "&height=512" +
+            "&srs=EPSG:900913" +
             "&format=image/png" +
             "&transparent=true";
 
     // return a geoserver wms tile layer
     public static TileProvider getTileProvider() {
-        return new WMSTileProvider(768, 654) {
+        return new WMSTileProvider(256, 256) {
 
             @Override
             public synchronized URL getTileUrl(int x, int y, int zoom) {
                 double[] bbox = getBoundingBox(x, y, zoom);
                 String s = String.format(Locale.US, GEOSERVER_FORMAT, bbox[MINX],
                         bbox[MINY], bbox[MAXX], bbox[MAXY]);
+                Log.v("URL WMS", s);
                 URL url = null;
                 try {
                     url = new URL(s);

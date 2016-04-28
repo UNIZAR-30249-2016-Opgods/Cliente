@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
                 TileProvider tileProvider = TileProviderFactory.getTileProvider();
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-                Log.e("WMS", "capa superpuesta");
+                Log.i("WMS", "capa superpuesta");
             }
         });
 
