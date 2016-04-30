@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,5 +23,62 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fa_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        fab:menu_icon="@drawable/ic_layers"
+        fab:menu_animationDelayPerItem="30"
+        fab:menu_labels_ellipsize="end"
+        fab:menu_labels_singleLine="true"
+        fab:menu_backgroundColor="#ccffffff"
+        fab:menu_labels_position="left"
+        fab:menu_colorNormal="@color/colorAccent"
+        fab:menu_colorPressed="@color/colorPrimary"
+        fab:menu_colorRipple="#99FFFFFF"
+        fab:menu_labels_colorNormal="@color/colorWhite"
+        fab:menu_labels_colorPressed="@color/colorWhite"
+        fab:menu_labels_textColor="@color/colorPrimaryText">
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/planta_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_3"
+            fab:fab_size="mini"
+            fab:fab_label="Planta 3"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/colorPrimary"/>
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/planta_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_2"
+            fab:fab_size="mini"
+            fab:fab_label="Planta 2"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/colorPrimary"/>
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/planta_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_1"
+            fab:fab_size="mini"
+            fab:fab_label="Planta 1"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/colorPrimary"/>
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/planta_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_0"
+            fab:fab_size="mini"
+            fab:fab_label="Planta 0"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/colorPrimary"/>
+</com.github.clans.fab.FloatingActionMenu>
 
 </android.support.design.widget.CoordinatorLayout>
