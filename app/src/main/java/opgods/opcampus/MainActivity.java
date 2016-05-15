@@ -11,7 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,10 +29,18 @@ import com.google.maps.android.geojson.GeoJsonLayer;
 
 import org.json.JSONObject;
 
+import opgods.opcampus.util.Constants;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private GoogleMap mMap;
     private MapView mapView;
+
+    private static FloatingActionMenu faMenu;
+    private FloatingActionButton fabPlanta_0;
+    private FloatingActionButton fabPlanta_1;
+    private FloatingActionButton fabPlanta_2;
+    private FloatingActionButton fabPlanta_3;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -55,12 +66,14 @@ public class MainActivity extends AppCompatActivity
 
                 LatLng adaByron = new LatLng(41.683662, -0.887611);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
-                TileProvider tileProvider = TileProviderFactory.getTileProvider();
-                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-                Log.i("WMS", "capa superpuesta");
             }
         });
 
+        findViewsById();
+        setButtonActions();
+
+        faMenu.setClosedOnTouchOutside(true);
+        faMenu.hideMenu(false);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -80,6 +93,53 @@ public class MainActivity extends AppCompatActivity
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    private void findViewsById() {
+        faMenu = (FloatingActionMenu) findViewById(R.id.fa_menu);
+        fabPlanta_0 = (FloatingActionButton) findViewById(R.id.planta_0);
+        fabPlanta_1 = (FloatingActionButton) findViewById(R.id.planta_1);
+        fabPlanta_2 = (FloatingActionButton) findViewById(R.id.planta_2);
+        fabPlanta_3 = (FloatingActionButton) findViewById(R.id.planta_3);
+    }
+
+    private void setButtonActions() {
+        fabPlanta_0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_0);
+                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
+                faMenu.close(true);
+            }
+        });
+        fabPlanta_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_1);
+                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
+                faMenu.close(true);
+            }
+        });
+        fabPlanta_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_2);
+                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
+                faMenu.close(true);
+            }
+        });
+        fabPlanta_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_3);
+                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
+                faMenu.close(true);
+            }
+        });
     }
 
     @Override
@@ -153,21 +213,27 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_parking) {
             setTitle(R.string.parking);
             int zoomLevel = 16;
-
+            faMenu.hideMenu(false);
             LatLng adaByron = new LatLng(41.683662, -0.887611);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
+            mMap.clear();
         } else if (id == R.id.nav_teacher) {
             setTitle(R.string.teachers);
             int zoomLevel = 19;
+            faMenu.showMenu(false);
 
             LatLng adaByron = new LatLng(41.683982, -0.888867);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
+            TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_0);
+            mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
         } else if (id == R.id.nav_cafe) {
             setTitle(R.string.cafe);
             int zoomLevel = 20;
+            faMenu.hideMenu(false);
 
             LatLng adaByron = new LatLng(41.683646, -0.888620);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
+            mMap.clear();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -219,6 +285,6 @@ public class MainActivity extends AppCompatActivity
     public void setLayer(JSONObject jsonObject) {
         GeoJsonLayer layer = new GeoJsonLayer(mMap, jsonObject);
         layer.addLayerToMap();
-        Log.e("OP", "JSON añadido");
+        Log.d("GEOJSON", "añadido");
     }
 }
