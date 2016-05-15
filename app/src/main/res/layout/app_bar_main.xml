@@ -44,6 +44,15 @@
         fab:menu_labels_colorPressed="@color/colorWhite"
         fab:menu_labels_textColor="@color/colorPrimaryText">
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/planta_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_4"
+            fab:fab_size="mini"
+            fab:fab_label="Planta 4"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/colorPrimary"/>
+        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/planta_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

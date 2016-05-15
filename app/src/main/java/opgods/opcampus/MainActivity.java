@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton fabPlanta_1;
     private FloatingActionButton fabPlanta_2;
     private FloatingActionButton fabPlanta_3;
+    private FloatingActionButton fabPlanta_4;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -101,12 +102,14 @@ public class MainActivity extends AppCompatActivity
         fabPlanta_1 = (FloatingActionButton) findViewById(R.id.planta_1);
         fabPlanta_2 = (FloatingActionButton) findViewById(R.id.planta_2);
         fabPlanta_3 = (FloatingActionButton) findViewById(R.id.planta_3);
+        fabPlanta_4 = (FloatingActionButton) findViewById(R.id.planta_4);
     }
 
     private void setButtonActions() {
         fabPlanta_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setTitle("Planta 0");
                 mMap.clear();
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_0);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
@@ -116,6 +119,7 @@ public class MainActivity extends AppCompatActivity
         fabPlanta_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setTitle("Planta 1");
                 mMap.clear();
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_1);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
@@ -125,6 +129,7 @@ public class MainActivity extends AppCompatActivity
         fabPlanta_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setTitle("Planta 2");
                 mMap.clear();
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_2);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
@@ -134,8 +139,19 @@ public class MainActivity extends AppCompatActivity
         fabPlanta_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setTitle("Planta 3");
                 mMap.clear();
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_3);
+                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
+                faMenu.close(true);
+            }
+        });
+        fabPlanta_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTitle("Planta 4");
+                mMap.clear();
+                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_4);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
                 faMenu.close(true);
             }
@@ -218,7 +234,7 @@ public class MainActivity extends AppCompatActivity
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
             mMap.clear();
         } else if (id == R.id.nav_teacher) {
-            setTitle(R.string.teachers);
+            setTitle("Planta 0");
             int zoomLevel = 19;
             faMenu.showMenu(false);
 

@@ -8,4 +8,5 @@ public class Constants {
     public static final String PLANTA_1 = "planta_1";
     public static final String PLANTA_2 = "planta_2";
     public static final String PLANTA_3 = "planta_3";
+    public static final String PLANTA_4 = "planta_4";
 }
