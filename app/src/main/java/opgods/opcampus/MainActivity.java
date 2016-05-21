@@ -24,11 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 import com.google.maps.android.geojson.GeoJsonLayer;
@@ -41,7 +37,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private GoogleMap mMap;
     private MapView mapView;
-    private Marker marker;
 
     private static FloatingActionMenu faMenu;
     private FloatingActionButton fabPlanta_0;
@@ -74,6 +69,7 @@ public class MainActivity extends AppCompatActivity
 
                 LatLng adaByron = new LatLng(41.683662, -0.887611);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
+                mMap.getUiSettings().setMapToolbarEnabled(false);
             }
         });
 
@@ -139,18 +135,7 @@ public class MainActivity extends AppCompatActivity
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_2);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
                 faMenu.close(true);
-                marker = mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(41.683904, -0.889391))
-                        .title("Rubén Béjar")
-                        .snippet("Email: emailr@unizar.es\nDespacho: 2.21")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-                mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-                    @Override
-                    public void onCameraChange(CameraPosition cameraPosition) {
-                        Log.d("Zoom", String.valueOf(cameraPosition.zoom));
-                        marker.setVisible(cameraPosition.zoom > 18.931767);
-                    }
-                });
+                TeacherMarkerManager teacherMarkerManager = new TeacherMarkerManager(mMap, Constants.PLANTA_2);
             }
         });
         fabPlanta_3.setOnClickListener(new View.OnClickListener() {
