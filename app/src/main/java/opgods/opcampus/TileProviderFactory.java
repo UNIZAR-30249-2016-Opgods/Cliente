@@ -8,8 +8,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Locale;
 
+import opgods.opcampus.util.Constants;
+
 public class TileProviderFactory {
-    private static String GEOSEVER_FORMAT = "http://geoserver-naxsel.rhcloud.com/labis/wms" +
+    private static String GEOSEVER_FORMAT = Constants.GEOSERVER +
+            "/labis/wms" +
             "?service=WMS" +
             "&version=1.1.0" +
             "&request=GetMap" +

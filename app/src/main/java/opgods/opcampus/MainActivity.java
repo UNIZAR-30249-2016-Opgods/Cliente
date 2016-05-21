@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton fabPlanta_2;
     private FloatingActionButton fabPlanta_3;
     private FloatingActionButton fabPlanta_4;
-
-    private SearchView searchView;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -93,8 +91,6 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             navigationView.getMenu().performIdentifierAction(R.id.drawer_layout, 0);
         }
-
-
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -178,9 +174,11 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setQueryHint("Buscar profesores...");
         searchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        TeacherSearcher searcher = new TeacherSearcher();
+        searchView.setOnQueryTextListener(searcher);
         return true;
     }
 

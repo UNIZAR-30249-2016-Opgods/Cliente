@@ -3,7 +3,6 @@ package opgods.opcampus;
 import com.google.android.gms.maps.model.UrlTileProvider;
 
 public abstract class WMSTileProvider extends UrlTileProvider {
-
     // Web Mercator n/w corner of the map.
     private static final double[] TILE_ORIGIN = {-20037508.34789244, 20037508.34789244};
     //array indexes for that data
