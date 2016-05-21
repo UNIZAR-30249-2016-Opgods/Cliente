@@ -5,4 +5,6 @@
     <color name="colorAccent">#448aff</color>
     <color name="colorWhite">#F2FFFFFF</color>
     <color name="colorPrimaryText">#D6000000</color>
+
+    <color name="routes">#f44336</color>
 </resources>

@@ -242,6 +242,7 @@ public class MainActivity extends AppCompatActivity
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
             mMap.clear();
         } else if (id == R.id.nav_teacher) {
+            mMap.clear();
             setTitle("Planta 0");
             int zoomLevel = 19;
             faMenu.showMenu(false);
@@ -250,14 +251,19 @@ public class MainActivity extends AppCompatActivity
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
             TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_0);
             mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-        } else if (id == R.id.nav_cafe) {
-            setTitle(R.string.cafe);
-            int zoomLevel = 20;
-            faMenu.hideMenu(false);
+        } else {
+            if (id == R.id.nav_cafe) {
+                setTitle(R.string.cafe);
+                int zoomLevel = 20;
+                faMenu.hideMenu(false);
 
-            LatLng adaByron = new LatLng(41.683646, -0.888620);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
-            mMap.clear();
+                LatLng adaByron = new LatLng(41.683646, -0.888620);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
+                RoutesCalculator routesCalculator = new RoutesCalculator(getApplicationContext(), mMap);
+                LatLng from = new LatLng(41.688768, -0.875018);
+                LatLng to = new LatLng(41.682185, -0.882993);
+                routesCalculator.paintRoute(from, to);
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -265,6 +271,8 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
     @Override
     public void onStart() {

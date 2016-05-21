@@ -50,6 +50,17 @@ public class TeacherMarkerManager {
     }
 
     /**
+     * Muestra los marcadores si el nivel de zoom actual lo permite
+     */
+    private void showMarkersIfZoom() {
+        if (map.getCameraPosition().zoom < Constants.ZOOM_MIN_PROFESORES) {
+            for (Marker marker : markers) {
+                marker.setVisible(false);
+            }
+        }
+    }
+
+    /**
      * Oculta los marcadores de los profesores en tiempo de ejecución según el nivel de zoom
      */
     private void setMarkersVisibility() {
@@ -61,16 +72,5 @@ public class TeacherMarkerManager {
                 }
             }
         });
-    }
-
-    /**
-     * Muestra los marcadores si el nivel de zoom actual lo permite
-     */
-    private void showMarkersIfZoom() {
-        if (map.getCameraPosition().zoom < Constants.ZOOM_MIN_PROFESORES) {
-            for (Marker marker : markers) {
-                marker.setVisible(false);
-            }
-        }
     }
 }
