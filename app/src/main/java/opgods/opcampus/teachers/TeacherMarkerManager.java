@@ -28,21 +28,36 @@ public class TeacherMarkerManager {
 
     public void loadMarkers(List<Teacher> teachers) {
         for (Teacher teacher : teachers) {
-            BitmapDescriptor icon;
-            if (teacher.estaDisponible()) {
-                icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_able);
-            } else {
-                icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_disable);
-            }
             if (markers.containsKey(teacher.getDespacho())) {
                 Marker marker = markers.get(teacher.getDespacho());
-                markers.remove(teacher.getDespacho());
-                marker.setSnippet(teacher.getNombre() + "--" + teacher.getInfo());
+                if ((marker.getTitle().contains("Disponible: sí") && !teacher.estaDisponible())
+                        || (marker.getTitle().contains("Disponible: no") && teacher.estaDisponible())) {
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_whoknows));
+                }
+                String texto = teacher.getNombre() + "--" + teacher.getInfo() + "\nDisponible: ";
+                if (teacher.estaDisponible()) {
+                    texto += "sí";
+                } else {
+                    texto += "no";
+                }
+                marker.setSnippet(texto);
                 markers.put(teacher.getDespacho(), marker);
             } else {
+                BitmapDescriptor icon;
+                if (teacher.estaDisponible()) {
+                    icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_able);
+                } else {
+                    icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_disable);
+                }
+                String texto = teacher.getNombre() + "--" + teacher.getInfo() + "\nDisponible: ";
+                if (teacher.estaDisponible()) {
+                    texto += "sí";
+                } else {
+                    texto += "no";
+                }
                 markers.put(teacher.getDespacho(), map.addMarker(new MarkerOptions()
                         .position(teacher.getLocalizacion())
-                        .title(teacher.getNombre() + "--" + teacher.getInfo())
+                        .title(texto)
                         .icon(icon)));
             }
         }

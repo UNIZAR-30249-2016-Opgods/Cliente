@@ -53,5 +53,4 @@ public class TeacherInfoWindow implements GoogleMap.InfoWindowAdapter {
         data = data.replace("; ", "\n").replace(":", ": ");
         return data.split("--");
     }
-
 }
