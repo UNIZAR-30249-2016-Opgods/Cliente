@@ -10,6 +10,7 @@ public class Constants {
     public static final String PLANTA_2 = "planta_2";
     public static final String PLANTA_3 = "planta_3";
     public static final String PLANTA_4 = "planta_4";
+    public static final String PLAZAS = "plazas";
 
     public static final String SERVER = "http://thawing-escarpment-49655.herokuapp.com/";
     public static final String PROFESORES_P0 = "profesores/0";

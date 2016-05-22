@@ -7,8 +7,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import opgods.opcampus.R;
 import opgods.opcampus.util.Constants;
@@ -18,11 +19,11 @@ import opgods.opcampus.util.Constants;
  */
 public class TeacherMarkerManager {
     private GoogleMap map;
-    private List<Marker> markers;
+    private Map<String, Marker> markers;
 
     public TeacherMarkerManager(GoogleMap map) {
         this.map = map;
-        this.markers = new ArrayList<>();
+        this.markers = new HashMap<>();
     }
 
     public void loadMarkers(List<Teacher> teachers) {
@@ -33,11 +34,17 @@ public class TeacherMarkerManager {
             } else {
                 icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_disable);
             }
-            markers.add(map.addMarker(new MarkerOptions()
-                    .position(teacher.getLocalización())
-                    .title(teacher.getNombre())
-                    .snippet(teacher.getInfo())
-                    .icon(icon)));
+            if (markers.containsKey(teacher.getDespacho())) {
+                Marker marker = markers.get(teacher.getDespacho());
+                markers.remove(teacher.getDespacho());
+                marker.setSnippet(teacher.getNombre() + "--" + teacher.getInfo());
+                markers.put(teacher.getDespacho(), marker);
+            } else {
+                markers.put(teacher.getDespacho(), map.addMarker(new MarkerOptions()
+                        .position(teacher.getLocalizacion())
+                        .title(teacher.getNombre() + "--" + teacher.getInfo())
+                        .icon(icon)));
+            }
         }
 
         showMarkersIfZoom();
@@ -49,8 +56,8 @@ public class TeacherMarkerManager {
      */
     private void showMarkersIfZoom() {
         if (map.getCameraPosition().zoom < Constants.ZOOM_MIN_PROFESORES) {
-            for (Marker marker : markers) {
-                marker.setVisible(false);
+            for (Map.Entry<String, Marker> entry : markers.entrySet()) {
+                entry.getValue().setVisible(false);
             }
         }
     }
@@ -62,8 +69,8 @@ public class TeacherMarkerManager {
         map.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             @Override
             public void onCameraChange(CameraPosition cameraPosition) {
-                for (Marker marker : markers) {
-                    marker.setVisible(cameraPosition.zoom > Constants.ZOOM_MIN_PROFESORES);
+                for (Map.Entry<String, Marker> entry : markers.entrySet()) {
+                    entry.getValue().setVisible(cameraPosition.zoom > Constants.ZOOM_MIN_PROFESORES);
                 }
             }
         });

@@ -10,16 +10,16 @@ public class Teacher {
     private String nombre;
     private boolean disponibilidad;
     private String info;
-    private LatLng localización;
+    private LatLng localizacion;
     private String despacho;
 
-    public Teacher(int id, String info, LatLng localización,
+    public Teacher(int id, String info, LatLng localizacion,
                    String nombre, String despacho, boolean disponibilidad) {
         this.despacho = despacho;
         this.disponibilidad = disponibilidad;
         this.id = id;
         this.info = info;
-        this.localización = localización;
+        this.localizacion = localizacion;
         this.nombre = nombre;
     }
 
@@ -39,8 +39,8 @@ public class Teacher {
         return info;
     }
 
-    public LatLng getLocalización() {
-        return localización;
+    public LatLng getLocalizacion() {
+        return localizacion;
     }
 
     public String getNombre() {

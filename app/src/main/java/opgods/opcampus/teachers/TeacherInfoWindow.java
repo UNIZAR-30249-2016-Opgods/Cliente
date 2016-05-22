@@ -24,9 +24,21 @@ public class TeacherInfoWindow implements GoogleMap.InfoWindowAdapter {
     @Override
     public View getInfoContents(Marker marker) {
         TextView tvTitle = ((TextView) myContentsView.findViewById(R.id.title));
-        tvTitle.setText(marker.getTitle());
         TextView tvSnippet = ((TextView) myContentsView.findViewById(R.id.snippet));
-        tvSnippet.setText(formatInfo(marker.getSnippet()));
+        String[] data = formatData(marker.getTitle());
+        tvTitle.setText(data[0]);
+        tvSnippet.setText(data[1]);
+
+        TextView tvTitle2 = ((TextView) myContentsView.findViewById(R.id.title2));
+        TextView tvSnippet2 = ((TextView) myContentsView.findViewById(R.id.snippet2));
+        if (marker.getSnippet() != null) {
+            data = formatData(marker.getSnippet());
+            tvTitle2.setText(data[0]);
+            tvSnippet2.setText(data[1]);
+        } else {
+            tvTitle2.setText("");
+            tvSnippet2.setText("");
+        }
 
         return myContentsView;
     }
@@ -37,7 +49,9 @@ public class TeacherInfoWindow implements GoogleMap.InfoWindowAdapter {
         return null;
     }
 
-    private String formatInfo(String info) {
-        return info.replace(";", "\n").replace(" ", "").replace(":", ": ");
+    private String[] formatData(String data) {
+        data = data.replace("; ", "\n").replace(":", ": ");
+        return data.split("--");
     }
+
 }

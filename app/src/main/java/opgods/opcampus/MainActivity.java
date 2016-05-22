@@ -34,7 +34,6 @@ import org.json.JSONObject;
 import java.util.List;
 
 import opgods.opcampus.maps.TileProviderFactory;
-import opgods.opcampus.parking.RoutesCalculator;
 import opgods.opcampus.teachers.GetTeachersAdapter;
 import opgods.opcampus.teachers.Teacher;
 import opgods.opcampus.teachers.TeacherInfoWindow;
@@ -79,10 +78,8 @@ public class MainActivity extends AppCompatActivity
                 LatLng adaByron = new LatLng(41.683662, -0.887611);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
                 mMap.getUiSettings().setMapToolbarEnabled(false);
-                RoutesCalculator routesCalculator = new RoutesCalculator(getApplicationContext(), mMap);
-                LatLng from = new LatLng(41.688768, -0.875018);
-                LatLng to = new LatLng(41.682185, -0.882993);
-                routesCalculator.paintRoute(from, to);
+                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLAZAS);
+                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
             }
         });
 
@@ -258,11 +255,12 @@ public class MainActivity extends AppCompatActivity
             faMenu.hideMenu(false);
             LatLng adaByron = new LatLng(41.683662, -0.887611);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
-            mMap.clear();
-            RoutesCalculator routesCalculator = new RoutesCalculator(getApplicationContext(), mMap);
+            TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLAZAS);
+            mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
+            /*RoutesCalculator routesCalculator = new RoutesCalculator(getApplicationContext(), mMap);
             LatLng from = new LatLng(41.688768, -0.875018);
             LatLng to = new LatLng(41.682185, -0.882993);
-            routesCalculator.paintRoute(from, to);
+            routesCalculator.paintRoute(from, to);*/
         } else if (id == R.id.nav_teacher) {
             mMap.clear();
             setTitle("Planta 0");
