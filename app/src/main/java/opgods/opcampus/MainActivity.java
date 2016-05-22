@@ -34,6 +34,8 @@ import org.json.JSONObject;
 import java.util.List;
 
 import opgods.opcampus.maps.TileProviderFactory;
+import opgods.opcampus.parking.SlotInfoWindow;
+import opgods.opcampus.parking.SlotsMarkerManager;
 import opgods.opcampus.teachers.GetTeachersAdapter;
 import opgods.opcampus.teachers.Teacher;
 import opgods.opcampus.teachers.TeacherInfoWindow;
@@ -80,6 +82,9 @@ public class MainActivity extends AppCompatActivity
                 mMap.getUiSettings().setMapToolbarEnabled(false);
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLAZAS);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
+                mMap.setInfoWindowAdapter(new SlotInfoWindow(getApplicationContext()));
+                SlotsMarkerManager manager = new SlotsMarkerManager(mMap, getApplicationContext());
+                manager.loadMarkers(null);
             }
         });
 
@@ -253,14 +258,14 @@ public class MainActivity extends AppCompatActivity
             setTitle(R.string.parking);
             int zoomLevel = 16;
             faMenu.hideMenu(false);
+
             LatLng adaByron = new LatLng(41.683662, -0.887611);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
             TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLAZAS);
             mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-            /*RoutesCalculator routesCalculator = new RoutesCalculator(getApplicationContext(), mMap);
-            LatLng from = new LatLng(41.688768, -0.875018);
-            LatLng to = new LatLng(41.682185, -0.882993);
-            routesCalculator.paintRoute(from, to);*/
+            mMap.setInfoWindowAdapter(new SlotInfoWindow(getApplicationContext()));
+            SlotsMarkerManager manager = new SlotsMarkerManager(mMap, getApplicationContext());
+            manager.loadMarkers(null);
         } else if (id == R.id.nav_teacher) {
             mMap.clear();
             setTitle("Planta 0");
@@ -272,6 +277,7 @@ public class MainActivity extends AppCompatActivity
             TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_0);
             mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
             mMap.setInfoWindowAdapter(new TeacherInfoWindow(getApplicationContext()));
+            mMap.setOnInfoWindowClickListener(null);
             new GetTeachersAdapter(MainActivity.this, Constants.PROFESORES_P0).execute();
         } else if (id == R.id.nav_cafe) {
                 mMap.clear();

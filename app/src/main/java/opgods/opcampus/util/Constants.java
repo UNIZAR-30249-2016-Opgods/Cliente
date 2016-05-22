@@ -20,6 +20,7 @@ public class Constants {
     public static final String PROFESORES_P4 = "profesores/4";
 
     public static final double ZOOM_MIN_PROFESORES = 18.698359;
+    public static final double ZOOM_MIN_PARKING = 15.999999;
 
     public static final String ERROR = "error";
     public static final int UNKOWN_ERROR = -1;
