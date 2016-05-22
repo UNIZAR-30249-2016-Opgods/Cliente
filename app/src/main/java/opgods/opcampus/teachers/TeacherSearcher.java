@@ -1,4 +1,4 @@
-package opgods.opcampus;
+package opgods.opcampus.teachers;
 
 import android.support.v7.widget.SearchView;
 import android.util.Log;

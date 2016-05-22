@@ -1,15 +1,15 @@
-package opgods.opcampus;
+package opgods.opcampus.teachers;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import opgods.opcampus.R;
 import opgods.opcampus.util.Constants;
 
 /**
@@ -17,33 +17,21 @@ import opgods.opcampus.util.Constants;
  */
 public class TeacherMarkerManager {
     private GoogleMap map;
-    private String planta;
     private List<Marker> markers;
 
-    public TeacherMarkerManager(GoogleMap map, String planta) {
+    public TeacherMarkerManager(GoogleMap map) {
         this.map = map;
-        this.planta = planta;
         this.markers = new ArrayList<>();
-        loadMarkers();
     }
 
-    // TODO load teachers from server
-    private void loadMarkers() {
-        markers.add(map.addMarker(new MarkerOptions()
-                .position(new LatLng(41.683904, -0.889389))
-                .title("Rubén Béjar")
-                .snippet("Email: emailr@unizar.es\nDespacho: 2.21")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_able))));
-        markers.add(map.addMarker(new MarkerOptions()
-                .position(new LatLng(41.683904, -0.889353))
-                .title("Zarazaga")
-                .snippet("Email: email@unizar.es\nDespacho: 2.20")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_disable))));
-        markers.add(map.addMarker(new MarkerOptions()
-                .position(new LatLng(41.683904, -0.889317))
-                .title("JEJE")
-                .snippet("Email: email@unizar.es\nDespacho: 2.19")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_whoknows))));
+    public void loadMarkers(List<Teacher> teachers) {
+        for (Teacher teacher : teachers) {
+            markers.add(map.addMarker(new MarkerOptions()
+                    .position(teacher.getLocalización())
+                    .title(teacher.getNombre())
+                    .snippet(teacher.getInfo())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_able))));
+        }
 
         showMarkersIfZoom();
         setMarkersVisibility();
