@@ -1,6 +1,7 @@
 package opgods.opcampus.teachers;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Marker;
@@ -26,11 +27,17 @@ public class TeacherMarkerManager {
 
     public void loadMarkers(List<Teacher> teachers) {
         for (Teacher teacher : teachers) {
+            BitmapDescriptor icon;
+            if (teacher.estaDisponible()) {
+                icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_able);
+            } else {
+                icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_disable);
+            }
             markers.add(map.addMarker(new MarkerOptions()
                     .position(teacher.getLocalización())
                     .title(teacher.getNombre())
                     .snippet(teacher.getInfo())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_able))));
+                    .icon(icon)));
         }
 
         showMarkersIfZoom();

@@ -27,7 +27,7 @@ public class Teacher {
         return despacho;
     }
 
-    public boolean isDisponibilidad() {
+    public boolean estaDisponible() {
         return disponibilidad;
     }
 
