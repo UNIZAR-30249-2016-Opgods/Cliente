@@ -1,4 +1,4 @@
-package opgods.opcampus;
+package opgods.opcampus.maps;
 
 import android.util.Log;
 

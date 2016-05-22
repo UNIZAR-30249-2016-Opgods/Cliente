@@ -1,4 +1,4 @@
-package opgods.opcampus;
+package opgods.opcampus.parking;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +15,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
+
+import opgods.opcampus.R;
 
 /**
  * Created by URZU on 21/05/2016.

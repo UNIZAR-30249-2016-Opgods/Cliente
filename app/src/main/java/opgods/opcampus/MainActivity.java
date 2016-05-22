@@ -33,8 +33,11 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import opgods.opcampus.maps.TileProviderFactory;
+import opgods.opcampus.parking.RoutesCalculator;
 import opgods.opcampus.teachers.GetTeachersAdapter;
 import opgods.opcampus.teachers.Teacher;
+import opgods.opcampus.teachers.TeacherInfoWindow;
 import opgods.opcampus.teachers.TeacherMarkerManager;
 import opgods.opcampus.teachers.TeacherSearcher;
 import opgods.opcampus.util.Constants;
@@ -76,6 +79,10 @@ public class MainActivity extends AppCompatActivity
                 LatLng adaByron = new LatLng(41.683662, -0.887611);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
                 mMap.getUiSettings().setMapToolbarEnabled(false);
+                RoutesCalculator routesCalculator = new RoutesCalculator(getApplicationContext(), mMap);
+                LatLng from = new LatLng(41.688768, -0.875018);
+                LatLng to = new LatLng(41.682185, -0.882993);
+                routesCalculator.paintRoute(from, to);
             }
         });
 
@@ -252,6 +259,10 @@ public class MainActivity extends AppCompatActivity
             LatLng adaByron = new LatLng(41.683662, -0.887611);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
             mMap.clear();
+            RoutesCalculator routesCalculator = new RoutesCalculator(getApplicationContext(), mMap);
+            LatLng from = new LatLng(41.688768, -0.875018);
+            LatLng to = new LatLng(41.682185, -0.882993);
+            routesCalculator.paintRoute(from, to);
         } else if (id == R.id.nav_teacher) {
             mMap.clear();
             setTitle("Planta 0");
@@ -262,6 +273,7 @@ public class MainActivity extends AppCompatActivity
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
             TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_0);
             mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
+            mMap.setInfoWindowAdapter(new TeacherInfoWindow(getApplicationContext()));
             new GetTeachersAdapter(MainActivity.this, Constants.PROFESORES_P0).execute();
         } else if (id == R.id.nav_cafe) {
                 mMap.clear();
@@ -271,10 +283,6 @@ public class MainActivity extends AppCompatActivity
 
                 LatLng adaByron = new LatLng(41.683646, -0.888620);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
-                RoutesCalculator routesCalculator = new RoutesCalculator(getApplicationContext(), mMap);
-                LatLng from = new LatLng(41.688768, -0.875018);
-                LatLng to = new LatLng(41.682185, -0.882993);
-                routesCalculator.paintRoute(from, to);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

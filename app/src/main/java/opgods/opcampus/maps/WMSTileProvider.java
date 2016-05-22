@@ -1,4 +1,4 @@
-package opgods.opcampus;
+package opgods.opcampus.maps;
 
 import com.google.android.gms.maps.model.UrlTileProvider;
 
