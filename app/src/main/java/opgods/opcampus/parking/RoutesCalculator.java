@@ -24,10 +24,12 @@ import opgods.opcampus.R;
 public class RoutesCalculator {
     private GoogleMap map;
     private Context context;
+    private SlotsMarkerManager manager;
 
-    public RoutesCalculator(Context contex, GoogleMap map) {
+    public RoutesCalculator(Context contex, GoogleMap map, SlotsMarkerManager manager) {
         this.map = map;
         this.context = contex;
+        this.manager = manager;
     }
 
     public void paintRoute(LatLng from, LatLng to) {
@@ -44,7 +46,7 @@ public class RoutesCalculator {
                             ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
                             PolylineOptions polylineOptions = DirectionConverter.createPolyline(context,
                                     directionPositionList, 5, ContextCompat.getColor(context, R.color.routes));
-                            map.addPolyline(polylineOptions);
+                            manager.setRoute(map.addPolyline(polylineOptions));
                         }
                     }
 

@@ -8,6 +8,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class SlotsMarkerManager {
     private GoogleMap map;
     private Context context;
     private List<Marker> markers;
+    private Polyline route;
 
     public SlotsMarkerManager(GoogleMap map, Context context) {
         this.map = map;
@@ -67,10 +69,14 @@ public class SlotsMarkerManager {
     }
 
     public boolean setMarkerClicked() {
+
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                RoutesCalculator routesCalculator = new RoutesCalculator(context, map);
+                if (route != null) {
+                    route.remove();
+                }
+                RoutesCalculator routesCalculator = new RoutesCalculator(context, map, SlotsMarkerManager.this);
                 LatLng from = new LatLng(41.688768, -0.875018);
                 LatLng to = marker.getPosition();
                 routesCalculator.paintRoute(from, to);
@@ -78,5 +84,9 @@ public class SlotsMarkerManager {
             }
         });
         return false;
+    }
+
+    public void setRoute(Polyline route) {
+        this.route = route;
     }
 }
