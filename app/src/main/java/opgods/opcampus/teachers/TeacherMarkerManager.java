@@ -7,12 +7,16 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.android.gms.maps.model.TileProvider;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import opgods.opcampus.MainActivity;
 import opgods.opcampus.R;
+import opgods.opcampus.maps.TileProviderFactory;
 import opgods.opcampus.util.Constants;
 
 /**
@@ -20,24 +24,26 @@ import opgods.opcampus.util.Constants;
  */
 public class TeacherMarkerManager {
     private static TeacherMarkerManager instance = null;
+    private MainActivity mainActivity;
     private GoogleMap map;
     private Map<String, Marker> markers;
 
-    public static TeacherMarkerManager getInstance(GoogleMap map) {
+    public static TeacherMarkerManager getInstance(MainActivity mainActivity, GoogleMap map) {
         if (instance == null) {
-            instance = new TeacherMarkerManager(map);
+            instance = new TeacherMarkerManager(mainActivity, map);
         }
 
         return instance;
     }
 
-    private TeacherMarkerManager(GoogleMap map) {
+    private TeacherMarkerManager(MainActivity mainActivity, GoogleMap map) {
+        this.mainActivity = mainActivity;
         this.map = map;
         this.markers = new HashMap<>();
     }
 
     public void loadMarkers(List<Teacher> teachers) {
-        this.markers = new HashMap<>();
+        markers.clear();
         for (Teacher teacher : teachers) {
             if (markers.containsKey(teacher.getDespacho())) {
                 Marker marker = markers.get(teacher.getDespacho());
@@ -80,6 +86,12 @@ public class TeacherMarkerManager {
     public void loadMarker(Teacher teacher) {
         final Marker marker = markers.get(teacher.getDespacho());
         if (marker == null) {
+            markers.clear();
+            map.clear();
+            TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA + teacher.getPlanta());
+            map.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
+            new GetTeachersAdapter(mainActivity).execute(Constants.PROFESORES + teacher.getPlanta());
+            mainActivity.setTitle("Planta " + teacher.getPlanta());
         } else {
             CameraPosition to =  new CameraPosition.Builder().target(marker.getPosition())
                     .zoom(20f)
@@ -94,8 +106,7 @@ public class TeacherMarkerManager {
                 }
 
                 @Override
-                public void onCancel() {
-                }
+                public void onCancel() {}
             });
         }
     }

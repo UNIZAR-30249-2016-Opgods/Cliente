@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setQueryHint("Buscar profesores...");
         searchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        TeacherSearcher searcher = new TeacherSearcher(MainActivity.this, searchView, TeacherMarkerManager.getInstance(mMap));
+        TeacherSearcher searcher = new TeacherSearcher(MainActivity.this, searchView, TeacherMarkerManager.getInstance(MainActivity.this, mMap));
         searchView.setOnQueryTextListener(searcher);
         searchView.setOnSuggestionListener(searcher);
         searchItem = menu.findItem(R.id.action_search);
@@ -352,9 +352,8 @@ public class MainActivity extends AppCompatActivity
 
     public void setTeachers(List<Teacher> teachers) {
         if (teachers != null) {
-            TeacherMarkerManager teacherMarkerManager = TeacherMarkerManager.getInstance(mMap);
+            TeacherMarkerManager teacherMarkerManager = TeacherMarkerManager.getInstance(MainActivity.this, mMap);
             teacherMarkerManager.loadMarkers(teachers);
-            Log.d("Profesores", "añadidos");
         }
     }
 }

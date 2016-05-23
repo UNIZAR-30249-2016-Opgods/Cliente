@@ -65,11 +65,12 @@ public class JsonParserTeacher {
                 String info = jsonOb.getString("info");
                 double latitud = jsonOb.getJSONObject("despacho").getJSONObject("localizacion").getJSONObject("punto").getDouble("latitud");
                 double longitud = jsonOb.getJSONObject("despacho").getJSONObject("localizacion").getJSONObject("punto").getDouble("longitud");
+                int planta = jsonOb.getJSONObject("despacho").getJSONObject("localizacion").getInt("utcPlanta");
                 LatLng localizacion = new LatLng(latitud, longitud);
                 String nombre = jsonOb.getString("nombre");
                 String despacho = jsonOb.getJSONObject("despacho").getString("codigo");
                 boolean disponibilidad = jsonOb.getBoolean("disponibilidad");
-                teachers.add(new Teacher(id, info, localizacion, nombre, despacho, disponibilidad));
+                teachers.add(new Teacher(id, info, localizacion, nombre, despacho, disponibilidad, planta));
             }
         } catch (Exception e) {
             e.printStackTrace();
