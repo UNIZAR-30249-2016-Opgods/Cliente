@@ -16,12 +16,12 @@ import opgods.opcampus.R;
  * Created by URZU on 23/05/2016.
  */
 public class TeacherCursorAdapter extends CursorAdapter {
-    private List<String> items;
+    private List<Teacher> teachers;
     private TextView text;
 
-    public TeacherCursorAdapter(Context context, Cursor cursor, List<String> items) {
+    public TeacherCursorAdapter(Context context, Cursor cursor, List<Teacher> teachers) {
         super(context, cursor, false);
-        this.items = items;
+        this.teachers = teachers;
     }
 
     @Override
@@ -34,7 +34,10 @@ public class TeacherCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        text.setText(items.get(cursor.getPosition()));
+        text.setText(teachers.get(cursor.getPosition()).getNombre());
     }
 
+    public Teacher getTeacher(int position) {
+        return teachers.get(position);
+    }
 }

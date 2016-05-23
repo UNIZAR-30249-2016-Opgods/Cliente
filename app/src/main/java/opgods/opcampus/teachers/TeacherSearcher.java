@@ -6,7 +6,6 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.widget.AutoCompleteTextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import opgods.opcampus.R;
@@ -18,7 +17,6 @@ import opgods.opcampus.util.Constants;
 public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchView.OnSuggestionListener {
     private Context context;
     private SearchView searchView;
-    private TeacherCursorAdapter adapter;
 
     public TeacherSearcher(Context context, SearchView searchView) {
         this.context = context;
@@ -33,42 +31,30 @@ public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchVi
 
     @Override
     public boolean onQueryTextChange(String name) {
-        Log.d("Text changed", name);
         new GetTeachersAdapter(this).execute(Constants.BUSCADOR_PROFESORES + name);
         return false;
     }
 
     public void setTeachers(List<Teacher> teachers) {
-        List<String> teachersName = new ArrayList<>();
         if (teachers != null) {
-            for (Teacher teacher : teachers) {
-                Log.d("Teacher", teacher.getNombre());
-                teachersName.add(teacher.getNombre());
+            // Cursor
+            String[] columns = new String[] { "_id", "text" };
+            Object[] temp = new Object[] { 0, "default" };
+
+            MatrixCursor cursor = new MatrixCursor(columns);
+
+            for (int i = 0; i < teachers.size(); i++) {
+                temp[0] = i;
+                temp[1] = teachers.get(i);
+                cursor.addRow(temp);
             }
-            populateAdapter(teachersName);
-        } else {
-            populateAdapter(teachersName);
+            TeacherCursorAdapter adapter = new TeacherCursorAdapter(context, cursor, teachers);
+            // autocompleta con una letra
+            AutoCompleteTextView searchAutoCompleteTextView = (AutoCompleteTextView) searchView.findViewById(R.id.search_src_text);
+            searchAutoCompleteTextView.setThreshold(1);
+            searchView.setSuggestionsAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }
-    }
-
-    private void populateAdapter(List<String> teachers) {
-        // Cursor
-        String[] columns = new String[] { "_id", "text" };
-        Object[] temp = new Object[] { 0, "default" };
-
-        MatrixCursor cursor = new MatrixCursor(columns);
-
-        for (int i = 0; i < teachers.size(); i++) {
-            temp[0] = i;
-            temp[1] = teachers.get(i);
-            cursor.addRow(temp);
-        }
-        adapter = new TeacherCursorAdapter(context, cursor, teachers);
-        // autocompleta con una letra
-        AutoCompleteTextView searchAutoCompleteTextView = (AutoCompleteTextView) searchView.findViewById(R.id.search_src_text);
-        searchAutoCompleteTextView.setThreshold(1);
-        searchView.setSuggestionsAdapter(adapter);
-        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -78,6 +64,8 @@ public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchVi
 
     @Override
     public boolean onSuggestionClick(int position) {
+        TeacherCursorAdapter adapter = (TeacherCursorAdapter) searchView.getSuggestionsAdapter();
+        System.out.println("Has pulsado el profesor " + adapter.getTeacher(position).getNombre());
         return false;
     }
 }
