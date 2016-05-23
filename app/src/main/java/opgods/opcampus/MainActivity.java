@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         mapView = (MapView) findViewById(R.id.mapView);
         assert mapView != null;
         mapView.onCreate(savedInstanceState);
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_0);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
                 faMenu.close(true);
-                new GetTeachersAdapter(MainActivity.this, Constants.PROFESORES_P0).execute();
+                new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P0);
             }
         });
         fabPlanta_1.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_1);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
                 faMenu.close(true);
-                new GetTeachersAdapter(MainActivity.this, Constants.PROFESORES_P1).execute();
+                new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P1);
             }
         });
         fabPlanta_2.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +151,7 @@ public class MainActivity extends AppCompatActivity
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_2);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
                 faMenu.close(true);
-                new GetTeachersAdapter(MainActivity.this, Constants.PROFESORES_P2).execute();
+                new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P2);
             }
         });
         fabPlanta_3.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +162,7 @@ public class MainActivity extends AppCompatActivity
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_3);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
                 faMenu.close(true);
-                new GetTeachersAdapter(MainActivity.this, Constants.PROFESORES_P3).execute();
+                new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P3);
             }
         });
         fabPlanta_4.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +173,7 @@ public class MainActivity extends AppCompatActivity
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_4);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
                 faMenu.close(true);
-                new GetTeachersAdapter(MainActivity.this, Constants.PROFESORES_P4).execute();
+                new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P4);
             }
         });
     }
@@ -198,8 +197,9 @@ public class MainActivity extends AppCompatActivity
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setQueryHint("Buscar profesores...");
         searchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        TeacherSearcher searcher = new TeacherSearcher();
+        TeacherSearcher searcher = new TeacherSearcher(this, searchView);
         searchView.setOnQueryTextListener(searcher);
+        searchView.setOnSuggestionListener(searcher);
         return true;
     }
 
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity
             mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
             mMap.setInfoWindowAdapter(new TeacherInfoWindow(getApplicationContext()));
             mMap.setOnInfoWindowClickListener(null);
-            new GetTeachersAdapter(MainActivity.this, Constants.PROFESORES_P0).execute();
+            new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P0);
         } else if (id == R.id.nav_cafe) {
                 mMap.clear();
                 setTitle(R.string.cafe);

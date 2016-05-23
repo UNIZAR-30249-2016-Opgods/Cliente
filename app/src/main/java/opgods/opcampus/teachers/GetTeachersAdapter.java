@@ -12,20 +12,23 @@ import opgods.opcampus.util.Constants;
 /**
  * Created by URZU on 22/05/2016.
  */
-public class GetTeachersAdapter extends AsyncTask<Void, Void, List<Teacher>> {
+public class GetTeachersAdapter extends AsyncTask<String, Void, List<Teacher>> {
+    private TeacherSearcher teacherSearcher;
     private MainActivity activity;
-    private String floor;
 
-    public GetTeachersAdapter(MainActivity activity, String floor) {
+    public GetTeachersAdapter(MainActivity activity) {
         this.activity = activity;
-        this.floor = floor;
+    }
+
+    public GetTeachersAdapter(TeacherSearcher teacherSearcher) {
+        this.teacherSearcher = teacherSearcher;
     }
 
     @Override
-    protected List<Teacher> doInBackground(Void... params) {
+    protected List<Teacher> doInBackground(String... params) {
         List<Teacher> teachers = null;
         try {
-            URL url = new URL(Constants.SERVER + floor);
+            URL url = new URL(Constants.SERVER + params[0]);
 
             HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
             httpUrlConnection.setReadTimeout(10000);
@@ -51,6 +54,10 @@ public class GetTeachersAdapter extends AsyncTask<Void, Void, List<Teacher>> {
     @Override
     protected void onPostExecute(List<Teacher> result) {
         super.onPostExecute(result);
-        activity.setTeachers(result);
+        if (activity != null) {
+            activity.setTeachers(result);
+        } else if (teacherSearcher != null) {
+            teacherSearcher.setTeachers(result);
+        }
     }
 }
