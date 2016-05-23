@@ -15,9 +15,15 @@ import opgods.opcampus.util.Constants;
 public class GetTeachersAdapter extends AsyncTask<String, Void, List<Teacher>> {
     private TeacherSearcher teacherSearcher;
     private MainActivity activity;
+    private Teacher teacher;
 
     public GetTeachersAdapter(MainActivity activity) {
         this.activity = activity;
+    }
+
+    public GetTeachersAdapter(MainActivity activity, Teacher teacher) {
+        this.activity = activity;
+        this.teacher = teacher;
     }
 
     public GetTeachersAdapter(TeacherSearcher teacherSearcher) {
@@ -55,7 +61,7 @@ public class GetTeachersAdapter extends AsyncTask<String, Void, List<Teacher>> {
     protected void onPostExecute(List<Teacher> result) {
         super.onPostExecute(result);
         if (activity != null) {
-            activity.setTeachers(result);
+            activity.setTeachers(result, teacher);
         } else if (teacherSearcher != null) {
             teacherSearcher.setTeachers(result);
         }

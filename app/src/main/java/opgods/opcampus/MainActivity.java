@@ -350,10 +350,10 @@ public class MainActivity extends AppCompatActivity
         Log.d("GEOJSON", "añadido");
     }
 
-    public void setTeachers(List<Teacher> teachers) {
+    public void setTeachers(List<Teacher> teachers, Teacher teacher) {
         if (teachers != null) {
             TeacherMarkerManager teacherMarkerManager = TeacherMarkerManager.getInstance(MainActivity.this, mMap);
-            teacherMarkerManager.loadMarkers(teachers);
+            teacherMarkerManager.loadMarkers(teachers, teacher);
         }
     }
 }

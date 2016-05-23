@@ -42,7 +42,7 @@ public class TeacherMarkerManager {
         this.markers = new HashMap<>();
     }
 
-    public void loadMarkers(List<Teacher> teachers) {
+    private void loadMarkers(List<Teacher> teachers) {
         markers.clear();
         for (Teacher teacher : teachers) {
             if (markers.containsKey(teacher.getDespacho())) {
@@ -83,6 +83,13 @@ public class TeacherMarkerManager {
         setMarkersVisibility();
     }
 
+    public void loadMarkers(List<Teacher> teachers, Teacher teacher) {
+        loadMarkers(teachers);
+        if (teacher != null) {
+            loadMarker(teacher);
+        }
+    }
+
     public void loadMarker(Teacher teacher) {
         final Marker marker = markers.get(teacher.getDespacho());
         if (marker == null) {
@@ -90,7 +97,7 @@ public class TeacherMarkerManager {
             map.clear();
             TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA + teacher.getPlanta());
             map.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-            new GetTeachersAdapter(mainActivity).execute(Constants.PROFESORES + teacher.getPlanta());
+            new GetTeachersAdapter(mainActivity, teacher).execute(Constants.PROFESORES + teacher.getPlanta());
             mainActivity.setTitle("Planta " + teacher.getPlanta());
         } else {
             CameraPosition to =  new CameraPosition.Builder().target(marker.getPosition())
