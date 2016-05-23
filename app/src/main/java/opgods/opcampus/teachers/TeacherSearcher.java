@@ -4,10 +4,12 @@ import android.content.Context;
 import android.database.MatrixCursor;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import opgods.opcampus.R;
 import opgods.opcampus.util.Constants;
 
 /**
@@ -62,6 +64,9 @@ public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchVi
             cursor.addRow(temp);
         }
         adapter = new TeacherCursorAdapter(context, cursor, teachers);
+        // autocompleta con una letra
+        AutoCompleteTextView searchAutoCompleteTextView = (AutoCompleteTextView) searchView.findViewById(R.id.search_src_text);
+        searchAutoCompleteTextView.setThreshold(1);
         searchView.setSuggestionsAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
