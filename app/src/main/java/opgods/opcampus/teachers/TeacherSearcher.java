@@ -8,6 +8,7 @@ import android.widget.AutoCompleteTextView;
 
 import java.util.List;
 
+import opgods.opcampus.MainActivity;
 import opgods.opcampus.R;
 import opgods.opcampus.util.Constants;
 
@@ -17,10 +18,12 @@ import opgods.opcampus.util.Constants;
 public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchView.OnSuggestionListener {
     private Context context;
     private SearchView searchView;
+    private TeacherMarkerManager manager;
 
-    public TeacherSearcher(Context context, SearchView searchView) {
-        this.context = context;
+    public TeacherSearcher(MainActivity activity, SearchView searchView, TeacherMarkerManager teacherMarkerManager) {
+        this.context = activity.getApplicationContext();
         this.searchView = searchView;
+        this.manager = teacherMarkerManager;
     }
 
     @Override
@@ -65,7 +68,8 @@ public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchVi
     @Override
     public boolean onSuggestionClick(int position) {
         TeacherCursorAdapter adapter = (TeacherCursorAdapter) searchView.getSuggestionsAdapter();
-        System.out.println("Has pulsado el profesor " + adapter.getTeacher(position).getNombre());
+        manager.loadMarker(adapter.getTeacher(position));
+        adapter.changeCursor(null);
         return false;
     }
 }

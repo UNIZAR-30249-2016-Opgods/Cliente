@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private GoogleMap mMap;
     private MapView mapView;
+    private MenuItem searchItem;
 
     private static FloatingActionMenu faMenu;
     private FloatingActionButton fabPlanta_0;
@@ -197,9 +198,11 @@ public class MainActivity extends AppCompatActivity
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setQueryHint("Buscar profesores...");
         searchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        TeacherSearcher searcher = new TeacherSearcher(this, searchView);
+        TeacherSearcher searcher = new TeacherSearcher(MainActivity.this, searchView, TeacherMarkerManager.getInstance(mMap));
         searchView.setOnQueryTextListener(searcher);
         searchView.setOnSuggestionListener(searcher);
+        searchItem = menu.findItem(R.id.action_search);
+        searchItem.setVisible(false);
         return true;
     }
 
@@ -254,6 +257,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_parking) {
+            searchItem.setVisible(false);
             mMap.clear();
             setTitle(R.string.parking);
             int zoomLevel = 16;
@@ -267,6 +271,7 @@ public class MainActivity extends AppCompatActivity
             SlotsMarkerManager manager = new SlotsMarkerManager(mMap, getApplicationContext());
             manager.loadMarkers(null);
         } else if (id == R.id.nav_teacher) {
+            searchItem.setVisible(true);
             mMap.clear();
             setTitle("Planta 0");
             int zoomLevel = 19;
@@ -280,13 +285,14 @@ public class MainActivity extends AppCompatActivity
             mMap.setOnInfoWindowClickListener(null);
             new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P0);
         } else if (id == R.id.nav_cafe) {
-                mMap.clear();
-                setTitle(R.string.cafe);
-                int zoomLevel = 20;
-                faMenu.hideMenu(false);
+            searchItem.setVisible(false);
+            mMap.clear();
+            setTitle(R.string.cafe);
+            int zoomLevel = 20;
+            faMenu.hideMenu(false);
 
-                LatLng adaByron = new LatLng(41.683646, -0.888620);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
+            LatLng adaByron = new LatLng(41.683646, -0.888620);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -346,7 +352,7 @@ public class MainActivity extends AppCompatActivity
 
     public void setTeachers(List<Teacher> teachers) {
         if (teachers != null) {
-            TeacherMarkerManager teacherMarkerManager = new TeacherMarkerManager(mMap);
+            TeacherMarkerManager teacherMarkerManager = TeacherMarkerManager.getInstance(mMap);
             teacherMarkerManager.loadMarkers(teachers);
             Log.d("Profesores", "añadidos");
         }

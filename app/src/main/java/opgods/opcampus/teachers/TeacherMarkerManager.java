@@ -1,5 +1,6 @@
 package opgods.opcampus.teachers;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -18,15 +19,25 @@ import opgods.opcampus.util.Constants;
  * Created by URZU on 21/05/2016.
  */
 public class TeacherMarkerManager {
+    private static TeacherMarkerManager instance = null;
     private GoogleMap map;
     private Map<String, Marker> markers;
 
-    public TeacherMarkerManager(GoogleMap map) {
+    public static TeacherMarkerManager getInstance(GoogleMap map) {
+        if (instance == null) {
+            instance = new TeacherMarkerManager(map);
+        }
+
+        return instance;
+    }
+
+    private TeacherMarkerManager(GoogleMap map) {
         this.map = map;
         this.markers = new HashMap<>();
     }
 
     public void loadMarkers(List<Teacher> teachers) {
+        this.markers = new HashMap<>();
         for (Teacher teacher : teachers) {
             if (markers.containsKey(teacher.getDespacho())) {
                 Marker marker = markers.get(teacher.getDespacho());
@@ -64,6 +75,29 @@ public class TeacherMarkerManager {
 
         showMarkersIfZoom();
         setMarkersVisibility();
+    }
+
+    public void loadMarker(Teacher teacher) {
+        final Marker marker = markers.get(teacher.getDespacho());
+        if (marker == null) {
+        } else {
+            CameraPosition to =  new CameraPosition.Builder().target(marker.getPosition())
+                    .zoom(20f)
+                    .bearing(0)
+                    .tilt(0)
+                    .build();
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(to), new GoogleMap.CancelableCallback() {
+                @Override
+                public void onFinish() {
+                    marker.setVisible(true);
+                    marker.showInfoWindow();
+                }
+
+                @Override
+                public void onCancel() {
+                }
+            });
+        }
     }
 
     /**
