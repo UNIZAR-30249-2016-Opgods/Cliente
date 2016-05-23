@@ -1,0 +1,23 @@
+{
+  "id":"500",
+  "nombre":"PLAZA QUEVEDO_1",
+  "punto":{
+    "latitud":41.682225544735665,
+    "longitud":-0.8875617780828404
+  },
+  "ocupacion":{
+    "nPlazas":50,
+    "ocupadas":2,
+    "libres":48
+  },
+  "accesos":
+  [
+    {
+      "latitud":41.681002,
+      "longitud":-0.889112
+    },
+    {
+      "latitud":41.682468,
+      "longitud":-0.889666}
+  ]
+}

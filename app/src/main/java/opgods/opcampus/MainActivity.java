@@ -34,6 +34,8 @@ import org.json.JSONObject;
 import java.util.List;
 
 import opgods.opcampus.maps.TileProviderFactory;
+import opgods.opcampus.parking.GetSlotsAdapter;
+import opgods.opcampus.parking.Slot;
 import opgods.opcampus.parking.SlotInfoWindow;
 import opgods.opcampus.parking.SlotsMarkerManager;
 import opgods.opcampus.teachers.GetTeachersAdapter;
@@ -83,8 +85,7 @@ public class MainActivity extends AppCompatActivity
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLAZAS);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
                 mMap.setInfoWindowAdapter(new SlotInfoWindow(getApplicationContext()));
-                SlotsMarkerManager manager = new SlotsMarkerManager(mMap, getApplicationContext());
-                manager.loadMarkers(null);
+                new GetSlotsAdapter(MainActivity.this).execute();
             }
         });
 
@@ -268,8 +269,7 @@ public class MainActivity extends AppCompatActivity
             TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLAZAS);
             mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
             mMap.setInfoWindowAdapter(new SlotInfoWindow(getApplicationContext()));
-            SlotsMarkerManager manager = new SlotsMarkerManager(mMap, getApplicationContext());
-            manager.loadMarkers(null);
+            new GetSlotsAdapter(MainActivity.this).execute();
         } else if (id == R.id.nav_teacher) {
             searchItem.setVisible(true);
             mMap.clear();
@@ -354,6 +354,13 @@ public class MainActivity extends AppCompatActivity
         if (teachers != null) {
             TeacherMarkerManager teacherMarkerManager = TeacherMarkerManager.getInstance(MainActivity.this, mMap);
             teacherMarkerManager.loadMarkers(teachers, teacher);
+        }
+    }
+
+    public void setSlots(List<Slot> slots) {
+        if (slots != null) {
+            SlotsMarkerManager manager = new SlotsMarkerManager(mMap, getApplicationContext());
+            manager.loadMarkers(slots);
         }
     }
 }

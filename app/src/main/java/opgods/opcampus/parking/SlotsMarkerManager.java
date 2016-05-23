@@ -1,7 +1,6 @@
 package opgods.opcampus.parking;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -31,11 +30,12 @@ public class SlotsMarkerManager {
     }
 
     public void loadMarkers(List<Slot> slots) {
-        markers.add(map.addMarker(new MarkerOptions()
-                .position(new LatLng(41.682668, -0.883106))
-                .title("27")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_slots))));
-        Log.d("Plaza", "marker añadido");
+        for (Slot slot : slots) {
+            markers.add(map.addMarker(new MarkerOptions()
+                    .position(slot.getLocalizacion())
+                    .title(slot.getLibres() + "/" + slot.getnPlazas())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_slots))));
+        }
         showMarkersIfZoom();
         setMarkersVisibility();
         setMarkerClicked();
@@ -67,7 +67,6 @@ public class SlotsMarkerManager {
     }
 
     public boolean setMarkerClicked() {
-        Log.d("Marker", "clicked");
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {

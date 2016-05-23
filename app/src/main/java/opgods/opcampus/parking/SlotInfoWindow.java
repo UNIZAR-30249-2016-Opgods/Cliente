@@ -3,6 +3,7 @@ package opgods.opcampus.parking;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
@@ -22,6 +23,8 @@ public class SlotInfoWindow implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoContents(Marker marker) {
+        TextView tv = (TextView) myContentsView.findViewById(R.id.nPlazas);
+        tv.setText(marker.getTitle());
         return myContentsView;
     }
 
