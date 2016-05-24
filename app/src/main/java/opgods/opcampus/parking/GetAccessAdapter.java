@@ -2,28 +2,25 @@ package opgods.opcampus.parking;
 
 import android.os.AsyncTask;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
-import opgods.opcampus.MainActivity;
+import opgods.opcampus.util.AsyncTaskCompleteListener;
 import opgods.opcampus.util.Constants;
 
 /**
  * Created by URZU on 22/05/2016.
  */
-public class GetAccessAdapter extends AsyncTask<String, Void, List<LatLng>> {
-    private MainActivity activity;
+public class GetAccessAdapter extends AsyncTask<String, Void, String> {
+    private AsyncTaskCompleteListener<String> listener;
 
-    public GetAccessAdapter(MainActivity activity) {
-        this.activity = activity;
+    public GetAccessAdapter(AsyncTaskCompleteListener<String> listener) {
+        this.listener = listener;
     }
 
     @Override
-    protected List<LatLng> doInBackground(String... params) {
-        List<LatLng> access = null;
+    protected String doInBackground(String... params) {
+        String response = "";
         try {
             URL url = new URL(Constants.ACCESOS);
 
@@ -37,19 +34,18 @@ public class GetAccessAdapter extends AsyncTask<String, Void, List<LatLng>> {
 
             if (status == HttpURLConnection.HTTP_OK) {
                 JsonParserAccess parser = new JsonParserAccess();
-                StringBuilder response = parser.getResponse(httpUrlConnection.getInputStream());
-                access = parser.getDataFromJson(response.toString());
+                response = parser.getResponse(httpUrlConnection.getInputStream());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return access;
+        return response;
     }
 
     @Override
-    protected void onPostExecute(List<LatLng> result) {
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        activity.setAccess(result);
+        listener.onTaskComplete(result);
     }
 }

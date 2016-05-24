@@ -46,6 +46,6 @@ public class JsonParserTest {
     @Test
     public void getResponse() {
         InputStream inputStream = new ByteArrayInputStream(response.getBytes());
-        assertEquals(response, jsonParser.getResponse(inputStream).toString());
+        assertEquals(response, jsonParser.getResponse(inputStream));
     }
 }

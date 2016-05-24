@@ -4,24 +4,23 @@ import android.os.AsyncTask;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
-import opgods.opcampus.MainActivity;
+import opgods.opcampus.util.AsyncTaskCompleteListener;
 import opgods.opcampus.util.Constants;
 
 /**
  * Created by URZU on 22/05/2016.
  */
-public class GetSlotsAdapter extends AsyncTask<String, Void, List<Slot>> {
-    private MainActivity activity;
+public class GetSlotsAdapter extends AsyncTask<String, Void, String> {
+    private AsyncTaskCompleteListener<String> listener;
 
-    public GetSlotsAdapter(MainActivity activity) {
-        this.activity = activity;
+    public GetSlotsAdapter(AsyncTaskCompleteListener<String> listener) {
+        this.listener = listener;
     }
 
     @Override
-    protected List<Slot> doInBackground(String... params) {
-        List<Slot> slots = null;
+    protected String doInBackground(String... params) {
+        String response = "";
         try {
             URL url = new URL(Constants.PARKING);
 
@@ -35,20 +34,19 @@ public class GetSlotsAdapter extends AsyncTask<String, Void, List<Slot>> {
 
             if (status == HttpURLConnection.HTTP_OK) {
                 JsonParserSlots parser = new JsonParserSlots();
-                StringBuilder response = parser.getResponse(httpUrlConnection.getInputStream());
-                slots = parser.getDataFromJson(response.toString());
+                response = parser.getResponse(httpUrlConnection.getInputStream());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return slots;
+        return response;
     }
 
 
     @Override
-    protected void onPostExecute(List<Slot> result) {
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        activity.setSlots(result);
+        listener.onTaskComplete(result);
     }
 }

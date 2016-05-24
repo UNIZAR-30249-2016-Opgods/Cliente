@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * Created by URZU on 23/05/2016.
  */
-public abstract class JsonParser {
-    public StringBuilder getResponse(InputStream inputStream) {
+public abstract class JsonParser<T> {
+    public String getResponse(InputStream inputStream) {
         String line;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder response = new StringBuilder();
@@ -23,10 +23,10 @@ public abstract class JsonParser {
             }
             bufferedReader.close();
             inputStream.close();
-            return response;
+            return response.toString();
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 
@@ -48,5 +48,5 @@ public abstract class JsonParser {
         return Constants.UNKOWN_ERROR;
     }
 
-    public abstract List<?> getDataFromJson(String json);
+    public abstract List<T> getDataFromJson(String json);
 }

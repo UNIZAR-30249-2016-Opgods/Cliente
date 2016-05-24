@@ -27,15 +27,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
-import java.util.List;
-
 import opgods.opcampus.maps.TileProviderFactory;
 import opgods.opcampus.parking.GetSlotsAdapter;
-import opgods.opcampus.parking.Slot;
-import opgods.opcampus.parking.SlotInfoWindow;
 import opgods.opcampus.parking.SlotsMarkerManager;
 import opgods.opcampus.teachers.GetTeachersAdapter;
-import opgods.opcampus.teachers.Teacher;
 import opgods.opcampus.teachers.TeacherInfoWindow;
 import opgods.opcampus.teachers.TeacherMarkerManager;
 import opgods.opcampus.teachers.TeacherSearcher;
@@ -46,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private MapView mapView;
     private MenuItem searchItem;
 
-    private static FloatingActionMenu faMenu;
+    private FloatingActionMenu faMenu;
     private FloatingActionButton fabPlanta_0;
     private FloatingActionButton fabPlanta_1;
     private FloatingActionButton fabPlanta_2;
@@ -80,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mMap.getUiSettings().setMapToolbarEnabled(false);
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLAZAS);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-                new GetSlotsAdapter(MainActivity.this).execute();
+                new GetSlotsAdapter(SlotsMarkerManager.getInstance(mMap, MainActivity.this)).execute();
             }
         });
 
@@ -156,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TileProvider tileProvider = TileProviderFactory.getTileProvider(planta);
         mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
         faMenu.close(true);
-        new GetTeachersAdapter(MainActivity.this).execute(profesores);
+        new GetTeachersAdapter(TeacherMarkerManager.getInstance(MainActivity.this, mMap)).execute(profesores);
     }
 
     @Override
@@ -247,8 +242,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
             TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLAZAS);
             mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-            mMap.setInfoWindowAdapter(new SlotInfoWindow(getApplicationContext()));
-            new GetSlotsAdapter(MainActivity.this).execute();
+            new GetSlotsAdapter(SlotsMarkerManager.getInstance(mMap, MainActivity.this)).execute();
         } else if (id == R.id.nav_teacher) {
             searchItem.setVisible(true);
             mMap.clear();
@@ -260,7 +254,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
             TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_0);
             mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-            new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P0);
+            mMap.setInfoWindowAdapter(new TeacherInfoWindow(getApplicationContext()));
+            new GetTeachersAdapter(TeacherMarkerManager.getInstance(MainActivity.this, mMap)).execute(Constants.PROFESORES_P0);
         } else if (id == R.id.nav_cafe) {
             searchItem.setVisible(false);
             mMap.clear();
@@ -318,28 +313,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
-    }
-
-    public void setTeachers(List<Teacher> teachers, Teacher teacher) {
-        if (teachers != null) {
-            mMap.setInfoWindowAdapter(new TeacherInfoWindow(getApplicationContext()));
-            TeacherMarkerManager teacherMarkerManager = TeacherMarkerManager.getInstance(MainActivity.this, mMap);
-            teacherMarkerManager.loadMarkers(teachers, teacher);
-        }
-    }
-
-    public void setSlots(List<Slot> slots) {
-        if (slots != null) {
-            mMap.setInfoWindowAdapter(new SlotInfoWindow(getApplicationContext()));
-            SlotsMarkerManager manager = SlotsMarkerManager.getInstance(mMap, MainActivity.this);
-            manager.loadSlotsMarkers(slots);
-        }
-    }
-
-    public void setAccess(List<LatLng> access) {
-        if (access != null) {
-            SlotsMarkerManager manager = SlotsMarkerManager.getInstance(mMap, MainActivity.this);
-            manager.loadAccessMarkers(access);
-        }
     }
 }

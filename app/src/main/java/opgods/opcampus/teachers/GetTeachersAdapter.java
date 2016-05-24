@@ -4,34 +4,22 @@ import android.os.AsyncTask;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
-import opgods.opcampus.MainActivity;
+import opgods.opcampus.util.AsyncTaskCompleteListener;
 
 /**
  * Created by URZU on 22/05/2016.
  */
-public class GetTeachersAdapter extends AsyncTask<String, Void, List<Teacher>> {
-    private TeacherSearcher teacherSearcher;
-    private MainActivity activity;
-    private Teacher teacher;
+public class GetTeachersAdapter extends AsyncTask<String, Void, String> {
+    private AsyncTaskCompleteListener<String> listener;
 
-    public GetTeachersAdapter(MainActivity activity) {
-        this.activity = activity;
-    }
-
-    public GetTeachersAdapter(MainActivity activity, Teacher teacher) {
-        this.activity = activity;
-        this.teacher = teacher;
-    }
-
-    public GetTeachersAdapter(TeacherSearcher teacherSearcher) {
-        this.teacherSearcher = teacherSearcher;
+    public GetTeachersAdapter(AsyncTaskCompleteListener<String> listener) {
+        this.listener = listener;
     }
 
     @Override
-    protected List<Teacher> doInBackground(String... params) {
-        List<Teacher> teachers = null;
+    protected String doInBackground(String... params) {
+        String response = "";
         try {
             URL url = new URL(params[0]);
 
@@ -45,24 +33,19 @@ public class GetTeachersAdapter extends AsyncTask<String, Void, List<Teacher>> {
 
             if (status == HttpURLConnection.HTTP_OK) {
                 JsonParserTeacher parser = new JsonParserTeacher();
-                StringBuilder response = parser.getResponse(httpUrlConnection.getInputStream());
-                teachers = parser.getDataFromJson(response.toString());
+                response = parser.getResponse(httpUrlConnection.getInputStream());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return teachers;
+        return response;
     }
 
 
     @Override
-    protected void onPostExecute(List<Teacher> result) {
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        if (activity != null) {
-            activity.setTeachers(result, teacher);
-        } else if (teacherSearcher != null) {
-            teacherSearcher.setTeachers(result);
-        }
+        listener.onTaskComplete(result);
     }
 }

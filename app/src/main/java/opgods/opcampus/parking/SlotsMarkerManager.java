@@ -1,9 +1,12 @@
 package opgods.opcampus.parking;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -12,46 +15,48 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import opgods.opcampus.MainActivity;
 import opgods.opcampus.R;
+import opgods.opcampus.util.AsyncTaskCompleteListener;
 import opgods.opcampus.util.Constants;
 
 /**
  * Created by URZU on 21/05/2016.
  */
-public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMarkerClickListener {
+public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMarkerClickListener, AsyncTaskCompleteListener<String> {
     private static SlotsMarkerManager instance = null;
-    private MainActivity activity;
     private GoogleMap map;
+    private Activity activity;
     private Context context;
     private List<Marker> slots;
     private List<Marker> access;
     private Polyline route;
     private Marker lastClicked;
 
-    public static SlotsMarkerManager getInstance(GoogleMap map, MainActivity mainActivity) {
+    public static SlotsMarkerManager getInstance(GoogleMap map, Activity activity) {
         if (instance == null) {
-            instance = new SlotsMarkerManager(map, mainActivity, mainActivity.getApplicationContext());
+            instance = new SlotsMarkerManager(map, activity);
         }
 
         return instance;
     }
 
-    private SlotsMarkerManager(GoogleMap map, MainActivity mainActivity, Context context) {
+    private SlotsMarkerManager(GoogleMap map, Activity activity) {
         this.map = map;
-        this.activity = mainActivity;
-        this.context = context;
+        this.context = activity.getApplicationContext();
+        this.activity = activity;
         this.slots = new ArrayList<>();
         this.access = new ArrayList<>();
         this.map.setOnInfoWindowClickListener(this);
         this.map.setOnMarkerClickListener(this);
     }
 
-    public void loadSlotsMarkers(List<Slot> slots) {
+    private void loadSlotsMarkers(List<Slot> slots) {
+        this.map.setInfoWindowAdapter(new SlotInfoWindow(this.context));
         this.slots.clear();
         for (Slot slot : slots) {
             this.slots.add(map.addMarker(new MarkerOptions()
@@ -94,15 +99,17 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
         });
     }
 
-    public void setRoute(Polyline route) {
-        this.route = route;
+    public void setRoute(ArrayList<LatLng> route) {
+        PolylineOptions polylineOptions = DirectionConverter.createPolyline(context,
+                route, 5, ContextCompat.getColor(context, R.color.routes));
+        this.route = map.addPolyline(polylineOptions);
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
         if (slots.contains(marker)) {
             lastClicked = marker;
-            new GetAccessAdapter(activity).execute();
+            new GetAccessAdapter(this).execute();
             View parentLayout = activity.findViewById(R.id.drawer_layout);
             if (parentLayout != null) {
                 if (route != null) {
@@ -127,14 +134,27 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
                     a.remove();
                 }
             }
-            RoutesCalculator routesCalculator = new RoutesCalculator(context, map, SlotsMarkerManager.this);
+            RoutesCalculator routesCalculator = new RoutesCalculator(SlotsMarkerManager.this);
             LatLng from = marker.getPosition();
             LatLng to = lastClicked.getPosition();
-            routesCalculator.paintRoute(from, to);
+            routesCalculator.paintRoute(from, to, context.getString(R.string.google_maps_server_key));
             marker.hideInfoWindow();
 
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onTaskComplete(String result) {
+        JsonParserSlots parserSlots = new JsonParserSlots();
+        List<Slot> slots = parserSlots.getDataFromJson(result);
+        if (!slots.isEmpty()) {
+            loadSlotsMarkers(slots);
+        } else {
+            JsonParserAccess parserAccess = new JsonParserAccess();
+            List<LatLng> access = parserAccess.getDataFromJson(result);
+            loadAccessMarkers(access);
+        }
     }
 }

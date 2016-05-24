@@ -1,5 +1,7 @@
 package opgods.opcampus.teachers;
 
+import android.app.Activity;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
@@ -14,32 +16,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import opgods.opcampus.MainActivity;
 import opgods.opcampus.R;
 import opgods.opcampus.maps.TileProviderFactory;
+import opgods.opcampus.util.AsyncTaskCompleteListener;
 import opgods.opcampus.util.Constants;
 
 /**
  * Created by URZU on 21/05/2016.
  */
-public class TeacherMarkerManager {
+public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
     private static TeacherMarkerManager instance = null;
-    private MainActivity mainActivity;
+    private Activity activity;
     private GoogleMap map;
     private Map<String, Marker> markers;
+    private Teacher teacherSearch;
 
-    public static TeacherMarkerManager getInstance(MainActivity mainActivity, GoogleMap map) {
+    public static TeacherMarkerManager getInstance(Activity activity, GoogleMap map) {
         if (instance == null) {
-            instance = new TeacherMarkerManager(mainActivity, map);
+            instance = new TeacherMarkerManager(activity, map);
         }
 
         return instance;
     }
 
-    private TeacherMarkerManager(MainActivity mainActivity, GoogleMap map) {
-        this.mainActivity = mainActivity;
+    private TeacherMarkerManager(Activity activity, GoogleMap map) {
+        this.activity = activity;
         this.map = map;
         this.markers = new HashMap<>();
+        this.map.setInfoWindowAdapter(new TeacherInfoWindow(activity.getApplicationContext()));
     }
 
     private void loadMarkers(List<Teacher> teachers) {
@@ -83,22 +87,16 @@ public class TeacherMarkerManager {
         setMarkersVisibility();
     }
 
-    public void loadMarkers(List<Teacher> teachers, Teacher teacher) {
-        loadMarkers(teachers);
-        if (teacher != null) {
-            loadMarker(teacher);
-        }
-    }
-
     public void loadMarker(Teacher teacher) {
+        teacherSearch = teacher;
         final Marker marker = markers.get(teacher.getDespacho());
         if (marker == null) {
             markers.clear();
             map.clear();
             TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA + teacher.getPlanta());
             map.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-            new GetTeachersAdapter(mainActivity, teacher).execute(Constants.PROFESORES + teacher.getPlanta());
-            mainActivity.setTitle("Planta " + teacher.getPlanta());
+            new GetTeachersAdapter(this).execute(Constants.PROFESORES + teacher.getPlanta());
+            activity.setTitle("Planta " + teacher.getPlanta());
         } else {
             CameraPosition to =  new CameraPosition.Builder().target(marker.getPosition())
                     .zoom(20f)
@@ -141,5 +139,15 @@ public class TeacherMarkerManager {
                 }
             }
         });
+    }
+
+    @Override
+    public void onTaskComplete(String result) {
+        JsonParserTeacher parser = new JsonParserTeacher();
+        List<Teacher> teachers = parser.getDataFromJson(result);
+        loadMarkers(teachers);
+        if (teacherSearch != null) {
+            loadMarker(teacherSearch);
+        }
     }
 }
