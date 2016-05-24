@@ -23,7 +23,7 @@ public class GetSlotsAdapter extends AsyncTask<String, Void, List<Slot>> {
     protected List<Slot> doInBackground(String... params) {
         List<Slot> slots = null;
         try {
-            URL url = new URL(Constants.SERVER + Constants.PARKING);
+            URL url = new URL(Constants.PARKING);
 
             HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
             httpUrlConnection.setReadTimeout(10000);

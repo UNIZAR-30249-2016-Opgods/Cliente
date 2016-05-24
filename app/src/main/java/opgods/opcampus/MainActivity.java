@@ -65,13 +65,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mapView = (MapView) findViewById(R.id.mapView);
-        assert mapView != null;
-        mapView.onCreate(savedInstanceState);
+        if (mapView != null) {
+            mapView.onCreate(savedInstanceState);
+        }
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                setTitle(R.string.parking);
                 mMap = googleMap;
+                setTitle(R.string.parking);
                 int zoomLevel = 16;
 
                 LatLng adaByron = new LatLng(41.683662, -0.887611);
@@ -120,58 +121,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fabPlanta_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setTitle("Planta 0");
-                mMap.clear();
-                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_0);
-                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-                faMenu.close(true);
-                new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P0);
+                setFloor("Planta 0", Constants.PLANTA_0, Constants.PROFESORES_P0);
             }
         });
         fabPlanta_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setTitle("Planta 1");
-                mMap.clear();
-                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_1);
-                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-                faMenu.close(true);
-                new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P1);
+                setFloor("Planta 1", Constants.PLANTA_1, Constants.PROFESORES_P1);
             }
         });
         fabPlanta_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setTitle("Planta 2");
-                mMap.clear();
-                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_2);
-                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-                faMenu.close(true);
-                new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P2);
+                setFloor("Planta 2", Constants.PLANTA_2, Constants.PROFESORES_P2);
             }
         });
         fabPlanta_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setTitle("Planta 3");
-                mMap.clear();
-                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_3);
-                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-                faMenu.close(true);
-                new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P3);
+                setFloor("Planta 3", Constants.PLANTA_3, Constants.PROFESORES_P3);
             }
         });
         fabPlanta_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setTitle("Planta 4");
-                mMap.clear();
-                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_4);
-                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-                faMenu.close(true);
-                new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P4);
+                setFloor("Planta 4", Constants.PLANTA_4, Constants.PROFESORES_P4);
             }
         });
+    }
+
+    private void setFloor(String title, String planta, String profesores) {
+        setTitle(title);
+        mMap.clear();
+        TileProvider tileProvider = TileProviderFactory.getTileProvider(planta);
+        mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
+        faMenu.close(true);
+        new GetTeachersAdapter(MainActivity.this).execute(profesores);
     }
 
     @Override

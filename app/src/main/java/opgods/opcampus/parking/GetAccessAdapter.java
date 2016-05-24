@@ -25,7 +25,7 @@ public class GetAccessAdapter extends AsyncTask<String, Void, List<LatLng>> {
     protected List<LatLng> doInBackground(String... params) {
         List<LatLng> access = null;
         try {
-            URL url = new URL(Constants.SERVER + Constants.ACCESOS);
+            URL url = new URL(Constants.ACCESOS);
 
             HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
             httpUrlConnection.setReadTimeout(10000);

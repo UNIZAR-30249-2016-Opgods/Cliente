@@ -13,17 +13,17 @@ public class Constants {
     public static final String PLANTA_4 = "planta_4";
     public static final String PLAZAS = "plazas";
 
-    public static final String SERVER = "http://thawing-escarpment-49655.herokuapp.com";
-    public static final String PROFESORES = "/profesores/";
-    public static final String PROFESORES_P0 = "/profesores/0";
-    public static final String PROFESORES_P1 = "/profesores/1";
-    public static final String PROFESORES_P2 = "/profesores/2";
-    public static final String PROFESORES_P3 = "/profesores/3";
-    public static final String PROFESORES_P4 = "/profesores/4";
-    public static final String BUSCADOR_PROFESORES = "/profesores/fuzzyFind/";
+    private static final String SERVER = "http://thawing-escarpment-49655.herokuapp.com";
+    public static final String PROFESORES = SERVER + "/profesores/";
+    public static final String PROFESORES_P0 = SERVER + "/profesores/0";
+    public static final String PROFESORES_P1 = SERVER + "/profesores/1";
+    public static final String PROFESORES_P2 = SERVER + "/profesores/2";
+    public static final String PROFESORES_P3 = SERVER + "/profesores/3";
+    public static final String PROFESORES_P4 = SERVER + "/profesores/4";
+    public static final String BUSCADOR_PROFESORES = SERVER + "/profesores/fuzzyFind/";
 
-    public static final String PARKING = "/parking/secciones";
-    public static final String ACCESOS = "/parking/puntosDeAcceso";
+    public static final String PARKING = SERVER + "/parking/secciones";
+    public static final String ACCESOS = SERVER + "/parking/puntosDeAcceso";
 
     public static final double ZOOM_MIN_PROFESORES = 18.698359;
     public static final double ZOOM_MIN_PARKING = 15.599999;

@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.List;
 
 import opgods.opcampus.MainActivity;
-import opgods.opcampus.util.Constants;
 
 /**
  * Created by URZU on 22/05/2016.
@@ -34,7 +33,7 @@ public class GetTeachersAdapter extends AsyncTask<String, Void, List<Teacher>> {
     protected List<Teacher> doInBackground(String... params) {
         List<Teacher> teachers = null;
         try {
-            URL url = new URL(Constants.SERVER + params[0]);
+            URL url = new URL(params[0]);
 
             HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
             httpUrlConnection.setReadTimeout(10000);
