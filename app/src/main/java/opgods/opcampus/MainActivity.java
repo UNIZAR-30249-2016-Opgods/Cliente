@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private GoogleMap mMap;
     private MapView mapView;
     private MenuItem searchItem;
+    private SectionManager sectionManager;
 
     private FloatingActionMenu faMenu;
     private FloatingActionButton fabPlanta_0;
@@ -67,15 +68,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
-                setTitle(R.string.parking);
-                int zoomLevel = 16;
-
-                LatLng adaByron = new LatLng(41.683662, -0.887611);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
-                mMap.getUiSettings().setMapToolbarEnabled(false);
-                TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLAZAS);
-                mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-                new GetSlotsAdapter(SlotsMarkerManager.getInstance(mMap, MainActivity.this)).execute();
+                sectionManager = new SectionManager(MainActivity.this, mMap);
+                sectionManager.initView();
             }
         });
 

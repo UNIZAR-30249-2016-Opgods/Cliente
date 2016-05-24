@@ -108,6 +108,7 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
                 public void onFinish() {
                     marker.setVisible(true);
                     marker.showInfoWindow();
+                    teacherSearch = null;
                 }
 
                 @Override
