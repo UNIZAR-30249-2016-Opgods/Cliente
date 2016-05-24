@@ -40,5 +40,4 @@ public abstract class WMSTileProvider extends UrlTileProvider {
 
         return bbox;
     }
-
 }

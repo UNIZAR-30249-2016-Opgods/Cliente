@@ -23,6 +23,7 @@ public class Constants {
     public static final String BUSCADOR_PROFESORES = "/profesores/fuzzyFind/";
 
     public static final String PARKING = "/parking/secciones";
+    public static final String ACCESOS = "/parking/puntosDeAcceso";
 
     public static final double ZOOM_MIN_PROFESORES = 18.698359;
     public static final double ZOOM_MIN_PARKING = 15.999999;

@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,9 +26,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
-import com.google.maps.android.geojson.GeoJsonLayer;
-
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -45,8 +41,7 @@ import opgods.opcampus.teachers.TeacherMarkerManager;
 import opgods.opcampus.teachers.TeacherSearcher;
 import opgods.opcampus.util.Constants;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private GoogleMap mMap;
     private MapView mapView;
     private MenuItem searchItem;
@@ -84,7 +79,6 @@ public class MainActivity extends AppCompatActivity
                 mMap.getUiSettings().setMapToolbarEnabled(false);
                 TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLAZAS);
                 mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-                mMap.setInfoWindowAdapter(new SlotInfoWindow(getApplicationContext()));
                 new GetSlotsAdapter(MainActivity.this).execute();
             }
         });
@@ -281,8 +275,6 @@ public class MainActivity extends AppCompatActivity
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(adaByron, zoomLevel));
             TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA_0);
             mMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-            mMap.setInfoWindowAdapter(new TeacherInfoWindow(getApplicationContext()));
-            mMap.setOnInfoWindowClickListener(null);
             new GetTeachersAdapter(MainActivity.this).execute(Constants.PROFESORES_P0);
         } else if (id == R.id.nav_cafe) {
             searchItem.setVisible(false);
@@ -343,15 +335,9 @@ public class MainActivity extends AppCompatActivity
         client.disconnect();
     }
 
-    public void setLayer(JSONObject jsonObject) {
-        GeoJsonLayer layer = new GeoJsonLayer(mMap, jsonObject);
-        layer.addLayerToMap();
-
-        Log.d("GEOJSON", "añadido");
-    }
-
     public void setTeachers(List<Teacher> teachers, Teacher teacher) {
         if (teachers != null) {
+            mMap.setInfoWindowAdapter(new TeacherInfoWindow(getApplicationContext()));
             TeacherMarkerManager teacherMarkerManager = TeacherMarkerManager.getInstance(MainActivity.this, mMap);
             teacherMarkerManager.loadMarkers(teachers, teacher);
         }
@@ -359,8 +345,16 @@ public class MainActivity extends AppCompatActivity
 
     public void setSlots(List<Slot> slots) {
         if (slots != null) {
-            SlotsMarkerManager manager = new SlotsMarkerManager(mMap, getApplicationContext());
-            manager.loadMarkers(slots);
+            mMap.setInfoWindowAdapter(new SlotInfoWindow(getApplicationContext()));
+            SlotsMarkerManager manager = SlotsMarkerManager.getInstance(mMap, MainActivity.this);
+            manager.loadSlotsMarkers(slots);
+        }
+    }
+
+    public void setAccess(List<LatLng> access) {
+        if (access != null) {
+            SlotsMarkerManager manager = SlotsMarkerManager.getInstance(mMap, MainActivity.this);
+            manager.loadAccessMarkers(access);
         }
     }
 }

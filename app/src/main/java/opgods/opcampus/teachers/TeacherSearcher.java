@@ -69,7 +69,6 @@ public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchVi
     public boolean onSuggestionClick(int position) {
         TeacherCursorAdapter adapter = (TeacherCursorAdapter) searchView.getSuggestionsAdapter();
         manager.loadMarker(adapter.getTeacher(position));
-        adapter.changeCursor(null);
         return false;
     }
 }
