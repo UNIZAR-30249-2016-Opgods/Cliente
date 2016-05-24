@@ -1,20 +1,19 @@
-package opgods.opcampus.parking;
+package opgods.opcampus.util;
 
 import android.os.AsyncTask;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import opgods.opcampus.util.AsyncTaskCompleteListener;
-import opgods.opcampus.util.Constants;
+import opgods.opcampus.parking.JsonParserAccess;
 
 /**
- * Created by URZU on 22/05/2016.
+ * Clase que se encarga de realizar la petición de tipo GET al servidor
  */
-public class GetSlotsAdapter extends AsyncTask<String, Void, String> {
+public class GetAdapter extends AsyncTask<String, Void, String> {
     private AsyncTaskCompleteListener<String> listener;
 
-    public GetSlotsAdapter(AsyncTaskCompleteListener<String> listener) {
+    public GetAdapter(AsyncTaskCompleteListener<String> listener) {
         this.listener = listener;
     }
 
@@ -22,7 +21,7 @@ public class GetSlotsAdapter extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         String response = "";
         try {
-            URL url = new URL(Constants.PARKING);
+            URL url = new URL(params[0]);
 
             HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
             httpUrlConnection.setReadTimeout(10000);
@@ -33,7 +32,7 @@ public class GetSlotsAdapter extends AsyncTask<String, Void, String> {
             int status = httpUrlConnection.getResponseCode();
 
             if (status == HttpURLConnection.HTTP_OK) {
-                JsonParserSlots parser = new JsonParserSlots();
+                JsonParser parser = new JsonParserAccess();
                 response = parser.getResponse(httpUrlConnection.getInputStream());
             }
         } catch (Exception e) {
@@ -42,7 +41,6 @@ public class GetSlotsAdapter extends AsyncTask<String, Void, String> {
 
         return response;
     }
-
 
     @Override
     protected void onPostExecute(String result) {

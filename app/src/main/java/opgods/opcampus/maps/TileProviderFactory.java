@@ -8,6 +8,9 @@ import java.util.Locale;
 
 import opgods.opcampus.util.Constants;
 
+/**
+ * Factoría que crea un TileProvider según las capas solicitadas
+ */
 public class TileProviderFactory {
     private static String GEOSEVER_FORMAT = Constants.GEOSERVER +
             "/labis/wms" +
@@ -23,7 +26,12 @@ public class TileProviderFactory {
             "&format=image/png" +
             "&transparent=true";
 
-    // return a geoserver wms tile layer
+    /**
+     * Crea un WMSTileProvider del Geoserver
+     *
+     * @param capa a mostrar
+     * @return WMSTileProvider
+     */
     public static TileProvider getTileProvider(final String capa) {
         return new WMSTileProvider(256, 256) {
             @Override

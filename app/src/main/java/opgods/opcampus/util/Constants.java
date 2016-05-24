@@ -1,7 +1,7 @@
 package opgods.opcampus.util;
 
 /**
- * Created by URZU on 15/05/2016.
+ * Constantes globales de la aplicación
  */
 public class Constants {
     public static final String GEOSERVER = "http://geoserver-naxsel.rhcloud.com";

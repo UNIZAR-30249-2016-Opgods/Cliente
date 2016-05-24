@@ -1,7 +1,9 @@
 package opgods.opcampus.util;
 
 /**
- * Created by URZU on 24/05/2016.
+ * Interfaz para la realización del callback una vez hayan finalizado los AsyncTask
+ *
+ * @param <T>
  */
 public interface AsyncTaskCompleteListener<T> {
     void onTaskComplete(T result);

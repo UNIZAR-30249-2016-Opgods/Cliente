@@ -12,13 +12,13 @@ import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
 import opgods.opcampus.maps.TileProviderFactory;
-import opgods.opcampus.parking.GetSlotsAdapter;
 import opgods.opcampus.parking.SlotInfoWindow;
 import opgods.opcampus.parking.SlotsMarkerManager;
-import opgods.opcampus.teachers.GetTeachersAdapter;
 import opgods.opcampus.teachers.TeacherInfoWindow;
 import opgods.opcampus.teachers.TeacherMarkerManager;
 import opgods.opcampus.util.Constants;
+import opgods.opcampus.util.GetAdapter;
+
 
 /**
  * Clase encargada de mostrar la vista de la aplicación según las acciones del usuario
@@ -73,7 +73,7 @@ public class SectionViewManager {
      * @param searchItem item del menú para ocultarlo
      */
     public void parkingView(MenuItem searchItem) {
-        new GetSlotsAdapter(SlotsMarkerManager.getInstance(map, mainActivity)).execute();
+        new GetAdapter(SlotsMarkerManager.getInstance(map, mainActivity)).execute(Constants.PARKING);
         map.setInfoWindowAdapter(new SlotInfoWindow(mainActivity.getApplicationContext()));
         changeView(searchItem, false, mainActivity.getString(R.string.parking), 16, new LatLng(41.683662, -0.887611), Constants.PLAZAS);
     }
@@ -85,7 +85,7 @@ public class SectionViewManager {
      * @param searchItem item del menú para mostrarlo
      */
     public void teacherView(MenuItem searchItem) {
-        new GetTeachersAdapter(TeacherMarkerManager.getInstance(mainActivity, map)).execute(Constants.PROFESORES_P0);
+        new GetAdapter(TeacherMarkerManager.getInstance(mainActivity, map)).execute(Constants.PROFESORES_P0);
         map.setInfoWindowAdapter(new TeacherInfoWindow(mainActivity.getApplicationContext()));
         changeView(searchItem, true, "Planta 0", 19, new LatLng(41.683982, -0.888867), Constants.PLANTA_0);
         faMenu.showMenu(false);
@@ -176,6 +176,6 @@ public class SectionViewManager {
         TileProvider tileProvider = TileProviderFactory.getTileProvider(planta);
         map.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
         faMenu.close(true);
-        new GetTeachersAdapter(TeacherMarkerManager.getInstance(mainActivity, map)).execute(profesores);
+        new GetAdapter(TeacherMarkerManager.getInstance(mainActivity, map)).execute(profesores);
     }
 }

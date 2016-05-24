@@ -10,9 +10,16 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 /**
- * Created by URZU on 23/05/2016.
+ * JSON parser
+ * @param <T>
  */
 public abstract class JsonParser<T> {
+    /**
+     * Consigue las respuesta de un inputStream
+     *
+     * @param inputStream de la respuesta
+     * @return respuesta
+     */
     public String getResponse(InputStream inputStream) {
         String line;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -48,5 +55,11 @@ public abstract class JsonParser<T> {
         return Constants.UNKOWN_ERROR;
     }
 
+    /**
+     * Método para conseguir la información de un JSON
+     *
+     * @param json con la información
+     * @return lista con los objetos de la respuesta
+     */
     public abstract List<T> getDataFromJson(String json);
 }

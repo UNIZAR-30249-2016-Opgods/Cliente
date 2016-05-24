@@ -12,6 +12,7 @@ import java.util.List;
 import opgods.opcampus.R;
 import opgods.opcampus.util.AsyncTaskCompleteListener;
 import opgods.opcampus.util.Constants;
+import opgods.opcampus.util.GetAdapter;
 
 /**
  * Created by URZU on 21/05/2016.
@@ -35,7 +36,7 @@ public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchVi
 
     @Override
     public boolean onQueryTextChange(String name) {
-        new GetTeachersAdapter(this).execute(Constants.BUSCADOR_PROFESORES + name);
+        new GetAdapter(this).execute(Constants.BUSCADOR_PROFESORES + name);
         return false;
     }
 

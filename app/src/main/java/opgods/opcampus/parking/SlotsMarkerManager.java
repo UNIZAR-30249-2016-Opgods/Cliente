@@ -23,6 +23,7 @@ import java.util.List;
 import opgods.opcampus.R;
 import opgods.opcampus.util.AsyncTaskCompleteListener;
 import opgods.opcampus.util.Constants;
+import opgods.opcampus.util.GetAdapter;
 
 /**
  * Created by URZU on 21/05/2016.
@@ -109,7 +110,7 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
     public void onInfoWindowClick(Marker marker) {
         if (slots.contains(marker)) {
             lastClicked = marker;
-            new GetAccessAdapter(this).execute();
+            new GetAdapter(this).execute(Constants.ACCESOS);
             View parentLayout = activity.findViewById(R.id.drawer_layout);
             if (parentLayout != null) {
                 if (route != null) {

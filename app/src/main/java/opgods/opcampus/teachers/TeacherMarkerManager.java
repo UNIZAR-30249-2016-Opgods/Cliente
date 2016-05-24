@@ -20,6 +20,7 @@ import opgods.opcampus.R;
 import opgods.opcampus.maps.TileProviderFactory;
 import opgods.opcampus.util.AsyncTaskCompleteListener;
 import opgods.opcampus.util.Constants;
+import opgods.opcampus.util.GetAdapter;
 
 /**
  * Created by URZU on 21/05/2016.
@@ -95,7 +96,7 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
             map.clear();
             TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA + teacher.getPlanta());
             map.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-            new GetTeachersAdapter(this).execute(Constants.PROFESORES + teacher.getPlanta());
+            new GetAdapter(this).execute(Constants.PROFESORES + teacher.getPlanta());
             activity.setTitle("Planta " + teacher.getPlanta());
         } else {
             CameraPosition to =  new CameraPosition.Builder().target(marker.getPosition())
