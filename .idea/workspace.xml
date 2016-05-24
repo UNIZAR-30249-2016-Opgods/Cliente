@@ -9,9 +9,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ef192723-0635-4fb5-bf42-433092f554b4" name="Default" comment="Probando travis">
+    <list default="true" id="ef192723-0635-4fb5-bf42-433092f554b4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradlew" afterPath="$PROJECT_DIR$/gradlew" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Cliente.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -2379,7 +2378,13 @@
       <option name="project" value="LOCAL" />
       <updated>1464091661448</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Permisos travis">
+      <created>1464092053321</created>
+      <option name="number" value="00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1464092053321</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2463,7 +2468,8 @@
     <MESSAGE value="Cambiado zoom parking" />
     <MESSAGE value="Somes tests" />
     <MESSAGE value="Probando travis" />
-    <option name="LAST_COMMIT_MESSAGE" value="Probando travis" />
+    <MESSAGE value="Permisos travis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Permisos travis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
