@@ -36,7 +36,7 @@ public abstract class JsonParser {
      * @param json a parsear
      * @return código de error
      */
-    private int getErrorFromJson(String json) {
+    public int getErrorFromJson(String json) {
         try {
             JSONObject jsonObject = new JSONObject(json);
 

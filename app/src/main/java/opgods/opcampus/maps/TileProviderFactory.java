@@ -1,7 +1,5 @@
 package opgods.opcampus.maps;
 
-import android.util.Log;
-
 import com.google.android.gms.maps.model.TileProvider;
 
 import java.net.MalformedURLException;
@@ -33,7 +31,6 @@ public class TileProviderFactory {
                 double[] bbox = getBoundingBox(x, y, zoom);
                 String s = String.format(Locale.US, GEOSEVER_FORMAT, capa, bbox[MINX],
                         bbox[MINY], bbox[MAXX], bbox[MAXY]);
-                Log.v("URL WMS", s);
                 URL url;
                 try {
                     url = new URL(s);
