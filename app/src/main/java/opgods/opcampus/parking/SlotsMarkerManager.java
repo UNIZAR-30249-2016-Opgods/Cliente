@@ -109,8 +109,8 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
                     route.remove();
                 }
                 Snackbar.make(parentLayout, "Escoge tu entrada", Snackbar.LENGTH_LONG).show();
-                CameraPosition to =  new CameraPosition.Builder().target(new LatLng(41.683662, -0.887611))
-                        .zoom(16f)
+                CameraPosition to =  new CameraPosition.Builder().target(new LatLng(41.683662, -0.886500))
+                        .zoom(15.6f)
                         .bearing(0)
                         .tilt(0)
                         .build();
