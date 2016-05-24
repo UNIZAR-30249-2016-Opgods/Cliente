@@ -23,7 +23,7 @@ import opgods.opcampus.util.GetAdapter;
 /**
  * Clase encargada de mostrar la vista de la aplicación según las acciones del usuario
  */
-public class SectionViewManager {
+public class ViewManager {
     private MainActivity mainActivity;
     private GoogleMap map;
 
@@ -35,7 +35,7 @@ public class SectionViewManager {
     private FloatingActionButton fabPlanta_4;
 
 
-    public SectionViewManager(MainActivity mainActivity, GoogleMap map) {
+    public ViewManager(MainActivity mainActivity, GoogleMap map) {
         this.mainActivity = mainActivity;
         this.map = map;
         findViewsById();

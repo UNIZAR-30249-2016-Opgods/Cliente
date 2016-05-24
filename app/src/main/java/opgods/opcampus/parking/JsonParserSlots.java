@@ -11,9 +11,15 @@ import java.util.List;
 import opgods.opcampus.util.JsonParser;
 
 /**
- * Created by URZU on 22/05/2016.
+ * Parser de secciones de parking
  */
 public class JsonParserSlots extends JsonParser {
+    /**
+     * Obtiene las secciones
+     *
+     * @param json con la información
+     * @return lista con las secciones
+     */
     public List<Slot> getDataFromJson(String json) {
         List<Slot> slots = new ArrayList<>();
         try {

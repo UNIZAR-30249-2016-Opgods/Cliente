@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private GoogleMap mMap;
     private MapView mapView;
     private MenuItem searchItem;
-    private SectionViewManager sectionManager;
+    private ViewManager sectionManager;
 
     private GoogleApiClient client;
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
-                sectionManager = new SectionViewManager(MainActivity.this, mMap);
+                sectionManager = new ViewManager(MainActivity.this, mMap);
             }
         });
 

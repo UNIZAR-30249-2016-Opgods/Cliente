@@ -11,9 +11,15 @@ import java.util.List;
 import opgods.opcampus.util.JsonParser;
 
 /**
- * Created by URZU on 22/05/2016.
+ * Parser de profesores
  */
 public class JsonParserTeacher extends JsonParser {
+    /**
+     * Obtiene los profesores
+     *
+     * @param json con la información
+     * @return lista con los profesores
+     */
     public List<Teacher> getDataFromJson(String json) {
         List<Teacher> teachers = new ArrayList<>();
         try {
