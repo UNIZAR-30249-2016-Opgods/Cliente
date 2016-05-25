@@ -11,8 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ef192723-0635-4fb5-bf42-433092f554b4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="$PROJECT_DIR$/.travis.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Cliente.iws" />
@@ -86,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="false">
+      <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.0">
-              <caret line="9" column="31" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.33395177">
+              <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -126,10 +125,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6360424">
+            <state vertical-scroll-proportion="0.0">
               <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
               <folding />
             </state>
@@ -2087,9 +2086,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/opgods/opcampus/ViewManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/opgods/opcampus/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/opgods/opcampus/teachers/TeacherMarkerManager.java" />
-        <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
       </list>
     </option>
   </component>
@@ -2535,12 +2534,6 @@
       <option name="number" value="Default" />
       <updated>1463328597129</updated>
     </task>
-    <task id="LOCAL-00004" summary="Disponibilidad de profesores">
-      <created>1463836446319</created>
-      <option name="number" value="00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1463836446319</updated>
-    </task>
     <task id="LOCAL-00005" summary="Icono disponibilidad who knows">
       <created>1463836515122</created>
       <option name="number" value="00005" />
@@ -2829,7 +2822,13 @@
       <option name="project" value="LOCAL" />
       <updated>1464210552899</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Ya queda poco para que funcione travis v1">
+      <created>1464210958934</created>
+      <option name="number" value="00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1464210958934</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2890,7 +2889,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cálculo de rutas desde punto de acceso hasta plaza" />
     <MESSAGE value="Cambiado zoom parking" />
     <MESSAGE value="Somes tests" />
     <MESSAGE value="Probando travis" />
@@ -2915,7 +2913,8 @@
     <MESSAGE value="Poniendo api 23" />
     <MESSAGE value="Apikey" />
     <MESSAGE value="Ya queda poco para que funcione travis" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ya queda poco para que funcione travis" />
+    <MESSAGE value="Ya queda poco para que funcione travis v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ya queda poco para que funcione travis v1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3248,14 +3247,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.0">
-          <caret line="9" column="31" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/debug/res/values/google_maps_api.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3290,8 +3281,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6360424">
+        <state vertical-scroll-proportion="0.0">
           <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33395177">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding />
         </state>
       </provider>
