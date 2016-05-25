@@ -45,7 +45,6 @@ public class TeacherInfoWindow implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoWindow(Marker marker) {
-        // TODO Auto-generated method stub
         return null;
     }
 

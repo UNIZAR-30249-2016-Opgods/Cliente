@@ -6,6 +6,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.model.Leg;
+import com.akexorcist.googledirection.model.Route;
 import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -41,6 +45,7 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
     private List<Marker> access;
     private Polyline route;
     private Marker lastClicked;
+    private DirectionCallback callback;
 
     public static SlotsMarkerManager getInstance(MainActivity activity) {
         if (instance == null) {
@@ -58,6 +63,25 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
         this.access = new ArrayList<>();
         this.map.setOnInfoWindowClickListener(this);
         this.map.setOnMarkerClickListener(this);
+        setCallback();
+    }
+
+    private void setCallback() {
+        this.callback = new DirectionCallback() {
+            @Override
+            public void onDirectionSuccess(Direction direction, String rawBody) {
+                if (direction.isOK()) {
+                    Route route = direction.getRouteList().get(0);
+                    Leg leg = route.getLegList().get(0);
+                    setRoute(leg.getDirectionPoint());
+                }
+            }
+
+            @Override
+            public void onDirectionFailure(Throwable t) {
+
+            }
+        };
     }
 
 
@@ -165,10 +189,10 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
                 }
             }
             // calcula la ruta
-            RoutesCalculator routesCalculator = new RoutesCalculator(SlotsMarkerManager.this);
             LatLng from = marker.getPosition();
             LatLng to = lastClicked.getPosition();
-            routesCalculator.paintRoute(from, to, context.getString(R.string.google_maps_server_key));
+            RoutesCalculator routesCalculator = new RoutesCalculator(context.getString(R.string.google_maps_server_key));
+            routesCalculator.paintRoute(from, to, callback);
             marker.hideInfoWindow();
 
             return true;

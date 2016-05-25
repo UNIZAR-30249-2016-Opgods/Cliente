@@ -31,6 +31,7 @@ dependencies {
     compile 'com.akexorcist:googledirectionlibrary:1.0.4'
     testCompile 'junit:junit:4.12'
     testCompile 'org.json:json:20140107'
+    testCompile "org.robolectric:robolectric:3.0"
     androidTestCompile 'com.android.support:support-annotations:23.2.1'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.4.1'
