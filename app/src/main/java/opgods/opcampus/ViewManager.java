@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
+import opgods.opcampus.cafeteria.CafeMarkerManager;
 import opgods.opcampus.maps.TileProviderFactory;
 import opgods.opcampus.parking.SlotInfoWindow;
 import opgods.opcampus.parking.SlotsMarkerManager;
@@ -75,7 +76,7 @@ public class ViewManager {
     public void parkingView(MenuItem searchItem) {
         new GetAdapter(SlotsMarkerManager.getInstance(map, mainActivity)).execute(Constants.PARKING);
         map.setInfoWindowAdapter(new SlotInfoWindow(mainActivity.getApplicationContext()));
-        changeView(searchItem, false, mainActivity.getString(R.string.parking), 16, new LatLng(41.683662, -0.887611), Constants.PLAZAS);
+        changeView(searchItem, false, mainActivity.getString(R.string.parking), 16, new LatLng(41.683662, -0.887611), Constants.PLAZAS, Constants.DEFAULT_STYLE);
     }
 
 
@@ -87,7 +88,7 @@ public class ViewManager {
     public void teacherView(MenuItem searchItem) {
         new GetAdapter(TeacherMarkerManager.getInstance(mainActivity, map)).execute(Constants.PROFESORES_P0);
         map.setInfoWindowAdapter(new TeacherInfoWindow(mainActivity.getApplicationContext()));
-        changeView(searchItem, true, "Planta 0", 19, new LatLng(41.683982, -0.888867), Constants.PLANTA_0);
+        changeView(searchItem, true, "Planta 0", 19, new LatLng(41.683982, -0.888867), Constants.PLANTA_0, Constants.DEFAULT_STYLE);
         faMenu.showMenu(false);
     }
 
@@ -98,8 +99,8 @@ public class ViewManager {
      * @param searchItem item del menú para ocultarlo
      */
     public void cafeView(MenuItem searchItem) {
-        changeView(searchItem, false, mainActivity.getString(R.string.cafe), 20, new LatLng(41.683646, -0.888620), "");
-        map.clear();
+        new GetAdapter(CafeMarkerManager.getInstance(map)).execute(Constants.CAFETERIA);
+        changeView(searchItem, false, mainActivity.getString(R.string.cafe), 20, new LatLng(41.683646, -0.888620), Constants.PLANTA_0, Constants.CAFE_STYLE);
     }
 
 
@@ -114,14 +115,14 @@ public class ViewManager {
      * @param layer capa a pedir al Geoserver
      */
     private void changeView(MenuItem searchItem, boolean searchVisibility, String title, int zoom,
-                            LatLng place, String layer) {
+                            LatLng place, String layer, String style) {
         searchItem.setVisible(searchVisibility);
         map.clear();
         mainActivity.setTitle(title);
         faMenu.hideMenu(false);
 
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(place, zoom));
-        TileProvider tileProvider = TileProviderFactory.getTileProvider(layer);
+        TileProvider tileProvider = TileProviderFactory.getTileProvider(layer, style);
         map.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
     }
 
@@ -173,7 +174,7 @@ public class ViewManager {
     private void setFloor(String title, String planta, String profesores) {
         mainActivity.setTitle(title);
         map.clear();
-        TileProvider tileProvider = TileProviderFactory.getTileProvider(planta);
+        TileProvider tileProvider = TileProviderFactory.getTileProvider(planta, Constants.DEFAULT_STYLE);
         map.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
         faMenu.close(true);
         new GetAdapter(TeacherMarkerManager.getInstance(mainActivity, map)).execute(profesores);

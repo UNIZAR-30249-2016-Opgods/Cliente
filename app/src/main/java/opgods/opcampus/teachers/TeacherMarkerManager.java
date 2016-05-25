@@ -108,7 +108,7 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
         if (marker == null) {
             markers.clear();
             map.clear();
-            TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA + teacher.getPlanta());
+            TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA + teacher.getPlanta(), Constants.DEFAULT_STYLE);
             map.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
             new GetAdapter(this).execute(Constants.PROFESORES + teacher.getPlanta());
             activity.setTitle("Planta " + teacher.getPlanta());

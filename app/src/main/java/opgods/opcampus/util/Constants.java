@@ -13,6 +13,9 @@ public class Constants {
     public static final String PLANTA_4 = "planta_4";
     public static final String PLAZAS = "plazas";
 
+    public static final String DEFAULT_STYLE = "";
+    public static final String CAFE_STYLE = "categorias";
+
     private static final String SERVER = "http://thawing-escarpment-49655.herokuapp.com";
     public static final String PROFESORES = SERVER + "/profesores/";
     public static final String PROFESORES_P0 = SERVER + "/profesores/0";
@@ -25,8 +28,11 @@ public class Constants {
     public static final String PARKING = SERVER + "/parking/secciones";
     public static final String ACCESOS = SERVER + "/parking/puntosDeAcceso";
 
+    public static final String CAFETERIA = SERVER + "/cafeterias";
+
     public static final double ZOOM_MIN_PROFESORES = 18.698359;
     public static final double ZOOM_MIN_PARKING = 15.599999;
+    public static final double ZOOM_MIN_CAFE = 17.761457;
 
     public static final String ERROR = "error";
     public static final int UNKOWN_ERROR = -1;

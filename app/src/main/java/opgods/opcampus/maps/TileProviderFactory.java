@@ -18,7 +18,7 @@ public class TileProviderFactory {
             "&version=1.1.0" +
             "&request=GetMap" +
             "&layers=labis:%s" +
-            "&styles=" +
+            "&styles=%s" +
             "&bbox=%f,%f,%f,%f" +
             "&width=512" +
             "&height=512" +
@@ -32,12 +32,12 @@ public class TileProviderFactory {
      * @param capa a mostrar
      * @return WMSTileProvider
      */
-    public static TileProvider getTileProvider(final String capa) {
+    public static TileProvider getTileProvider(final String capa, final String style) {
         return new WMSTileProvider(256, 256) {
             @Override
             public synchronized URL getTileUrl(int x, int y, int zoom) {
                 double[] bbox = getBoundingBox(x, y, zoom);
-                String s = String.format(Locale.US, GEOSEVER_FORMAT, capa, bbox[MINX],
+                String s = String.format(Locale.US, GEOSEVER_FORMAT, capa, style, bbox[MINX],
                         bbox[MINY], bbox[MAXX], bbox[MAXY]);
                 URL url;
                 try {

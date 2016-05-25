@@ -15,7 +15,7 @@ import static junit.framework.Assert.*;
 public class TileProviderFactoryTest {
     @Test
     public void getTiteProvider() {
-        TileProvider tileProvider = TileProviderFactory.getTileProvider("foo");
+        TileProvider tileProvider = TileProviderFactory.getTileProvider("foo", "bar");
         Tile tile = tileProvider.getTile(32606, 24405, 16);
         assertEquals(256, tile.height);
         assertEquals(256, tile.width);
