@@ -88,8 +88,8 @@
       <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33395177">
-              <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.16697589">
+              <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -2534,12 +2534,6 @@
       <option name="number" value="Default" />
       <updated>1463328597129</updated>
     </task>
-    <task id="LOCAL-00005" summary="Icono disponibilidad who knows">
-      <created>1463836515122</created>
-      <option name="number" value="00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1463836515122</updated>
-    </task>
     <task id="LOCAL-00006" summary="Rutas con Google Maps API">
       <created>1463849001022</created>
       <option name="number" value="00006" />
@@ -2828,7 +2822,13 @@
       <option name="project" value="LOCAL" />
       <updated>1464210958934</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Ya queda poco para que funcione travis v21234">
+      <created>1464211723055</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1464211723055</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2889,7 +2889,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cambiado zoom parking" />
     <MESSAGE value="Somes tests" />
     <MESSAGE value="Probando travis" />
     <MESSAGE value="Permisos travis" />
@@ -2914,7 +2913,8 @@
     <MESSAGE value="Apikey" />
     <MESSAGE value="Ya queda poco para que funcione travis" />
     <MESSAGE value="Ya queda poco para que funcione travis v1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ya queda poco para que funcione travis v1" />
+    <MESSAGE value="Ya queda poco para que funcione travis v21234" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ya queda poco para que funcione travis v21234" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3289,8 +3289,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33395177">
-          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.16697589">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
           <folding />
         </state>
       </provider>
