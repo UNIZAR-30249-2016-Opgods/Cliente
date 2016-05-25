@@ -10,4 +10,7 @@
     <string name="teachers">Profesores</string>
     <string name="cafe">Cafetería</string>
     <string name="search">Buscar</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDChm8RBfhAW1Uf2d_FVvANCybnVvSOMcY</string>
+    <string name="google_maps_server_key" templateMergeStrategy="preserve" translatable="false">AIzaSyA3BtOe4pnbV2ECRufc6eJcElX3XjVFGos</string>
 </resources>
