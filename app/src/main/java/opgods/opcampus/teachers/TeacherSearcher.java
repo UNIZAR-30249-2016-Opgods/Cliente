@@ -26,6 +26,9 @@ public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchVi
         this.context = activity.getApplicationContext();
         this.searchView = searchView;
         this.manager = teacherMarkerManager;
+        // autocompleta con una letra
+        AutoCompleteTextView searchAutoCompleteTextView = (AutoCompleteTextView) searchView.findViewById(R.id.search_src_text);
+        searchAutoCompleteTextView.setThreshold(1);
     }
 
     @Override
@@ -36,8 +39,12 @@ public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchVi
 
     @Override
     public boolean onQueryTextChange(String name) {
-        // realiza un petición cada vez que el usuario introduce una nueva letra
-        new GetAdapter(this).execute(Constants.BUSCADOR_PROFESORES + name);
+        if (name.length() == 0) {
+            searchView.setSuggestionsAdapter(null);
+        } else {
+            // realiza un petición cada vez que el usuario introduce una nueva letra
+            new GetAdapter(this).execute(Constants.BUSCADOR_PROFESORES + name);
+        }
         return false;
     }
 
@@ -55,15 +62,13 @@ public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchVi
 
             MatrixCursor cursor = new MatrixCursor(columns);
 
-            for (int i = 0; i < teachers.size(); i++) {
+            for (int i = 0; i < teachers.size() && i < 7; i++) {
                 temp[0] = i;
                 temp[1] = teachers.get(i);
                 cursor.addRow(temp);
             }
             TeacherCursorAdapter adapter = new TeacherCursorAdapter(context, cursor, teachers);
-            // autocompleta con una letra
-            AutoCompleteTextView searchAutoCompleteTextView = (AutoCompleteTextView) searchView.findViewById(R.id.search_src_text);
-            searchAutoCompleteTextView.setThreshold(1);
+            adapter.changeCursor(cursor);
             searchView.setSuggestionsAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
