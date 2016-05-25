@@ -88,8 +88,8 @@
       <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2671614">
-              <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.3005566">
+              <caret line="9" column="31" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -2777,7 +2777,13 @@
       <option name="project" value="LOCAL" />
       <updated>1464205880651</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Poniendo api 21">
+      <created>1464206909728</created>
+      <option name="number" value="00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1464206909728</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2838,7 +2844,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cambio de planta y profesores en las búsquedas" />
     <MESSAGE value="Información completa del profesor buscado" />
     <MESSAGE value="Se muestra todas las plazas del parking" />
     <MESSAGE value="Cálculo de rutas desde punto fijo hasta plaza" />
@@ -2863,7 +2868,8 @@
     <MESSAGE value="Rezando estoy de que no pete con el coverall mucho xml sube esto" />
     <MESSAGE value="Rezando estoy de que no pete con el coverall mucho xml sube esto v2" />
     <MESSAGE value="Rezando estoy de que no pete con el coverall mucho xml sube esto v3" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rezando estoy de que no pete con el coverall mucho xml sube esto v3" />
+    <MESSAGE value="Poniendo api 21" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poniendo api 21" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3236,8 +3242,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2671614">
-          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.3005566">
+          <caret line="9" column="31" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
           <folding />
         </state>
       </provider>
