@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private GoogleMap mMap;
     private MapView mapView;
     private MenuItem searchItem;
-    private ViewManager sectionManager;
+    private ViewManager viewManager;
 
     private GoogleApiClient client;
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
-                sectionManager = new ViewManager(MainActivity.this);
+                viewManager = new ViewManager(MainActivity.this);
             }
         });
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchView.setOnSuggestionListener(searcher);
         searchItem = menu.findItem(R.id.action_search);
         searchItem.setVisible(false);
-        sectionManager.initView();
+        viewManager.initView();
         return true;
     }
 
@@ -150,11 +150,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_parking) {
-            sectionManager.parkingView();
+            viewManager.parkingView();
         } else if (id == R.id.nav_teacher) {
-            sectionManager.teacherView();
+            viewManager.teacherView();
         } else if (id == R.id.nav_cafe) {
-            sectionManager.cafeView();
+            viewManager.cafeView();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -191,5 +191,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public MenuItem getSearchItem() {
         return searchItem;
+    }
+
+    public ViewManager getViewManager() {
+        return viewManager;
     }
 }

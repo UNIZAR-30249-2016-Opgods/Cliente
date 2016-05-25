@@ -1,6 +1,5 @@
 package opgods.opcampus.parking;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -32,14 +31,11 @@ import opgods.opcampus.util.GetAdapter;
 
 /**
  * Clase encargada de mostrar los marcadores del parking
- *
- * Singleton
  */
 public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMarkerClickListener,
         AsyncTaskCompleteListener<String> {
-    private static SlotsMarkerManager instance = null;
     private GoogleMap map;
-    private Activity activity;
+    private MainActivity mainActivity;
     private Context context;
     private List<Marker> slots;
     private List<Marker> access;
@@ -47,18 +43,10 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
     private Marker lastClicked;
     private DirectionCallback callback;
 
-    public static SlotsMarkerManager getInstance(MainActivity activity) {
-        if (instance == null) {
-            instance = new SlotsMarkerManager(activity.getMap(), activity);
-        }
-
-        return instance;
-    }
-
-    private SlotsMarkerManager(GoogleMap map, Activity activity) {
-        this.map = map;
-        this.context = activity.getApplicationContext();
-        this.activity = activity;
+    public SlotsMarkerManager(MainActivity mainActivity) {
+        this.map = mainActivity.getMap();
+        this.context = mainActivity.getApplicationContext();
+        this.mainActivity = mainActivity;
         this.slots = new ArrayList<>();
         this.access = new ArrayList<>();
         this.map.setOnInfoWindowClickListener(this);
@@ -161,7 +149,7 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
         if (slots.contains(marker)) {
             lastClicked = marker;
             new GetAdapter(this).execute(Constants.ACCESOS);
-            View parentLayout = activity.findViewById(R.id.drawer_layout);
+            View parentLayout = mainActivity.findViewById(R.id.drawer_layout);
             if (parentLayout != null) {
                 // borra una ruta si existe
                 if (route != null) {

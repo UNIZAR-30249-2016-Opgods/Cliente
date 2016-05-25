@@ -16,24 +16,13 @@ import opgods.opcampus.util.Constants;
 
 /**
  * Clase encargada de mostrar los marcadores del parking
- *
- * Singleton
  */
 public class CafeMarkerManager implements AsyncTaskCompleteListener<String> {
-    private static CafeMarkerManager instance = null;
     private GoogleMap map;
     private List<Marker> cafes;
 
-    public static CafeMarkerManager getInstance(MainActivity mainActivity) {
-        if (instance == null) {
-            instance = new CafeMarkerManager(mainActivity.getMap());
-        }
-
-        return instance;
-    }
-
-    private CafeMarkerManager(GoogleMap map) {
-        this.map = map;
+    public CafeMarkerManager(MainActivity mainActivity) {
+        this.map = mainActivity.getMap();
         this.cafes = new ArrayList<>();
     }
 

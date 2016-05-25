@@ -71,7 +71,7 @@ public class ViewManager {
      * Muestra la configuración de la sección de parking
      */
     public void parkingView() {
-        new GetAdapter(SlotsMarkerManager.getInstance(mainActivity)).execute(Constants.PARKING);
+        new GetAdapter(new SlotsMarkerManager(mainActivity)).execute(Constants.PARKING);
         map.setInfoWindowAdapter(new SlotInfoWindow(mainActivity.getApplicationContext()));
         changeView(false, mainActivity.getString(R.string.parking), 16, new LatLng(41.683662, -0.887611), Constants.PLAZAS, Constants.DEFAULT_STYLE);
     }
@@ -93,7 +93,7 @@ public class ViewManager {
      * Muestra la configuración de la sección de cafetería
      */
     public void cafeView() {
-        new GetAdapter(CafeMarkerManager.getInstance(mainActivity)).execute(Constants.CAFETERIA);
+        new GetAdapter(new CafeMarkerManager(mainActivity)).execute(Constants.CAFETERIA);
         changeView(false, mainActivity.getString(R.string.cafe), 20, new LatLng(41.683646, -0.888620), Constants.PLANTA_0, Constants.CAFE_STYLE);
     }
 
@@ -164,7 +164,7 @@ public class ViewManager {
      * @param planta planta a mostrar
      * @param profesores profesores a mostrar
      */
-    private void setFloor(String title, String planta, String profesores) {
+    public void setFloor(String title, String planta, String profesores) {
         mainActivity.setTitle(title);
         map.clear();
         TileProvider tileProvider = TileProviderFactory.getTileProvider(planta, Constants.DEFAULT_STYLE);

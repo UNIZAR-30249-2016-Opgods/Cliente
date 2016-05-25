@@ -1,6 +1,6 @@
 package opgods.opcampus.teachers;
 
-import android.app.Activity;
+import android.support.annotation.NonNull;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -9,8 +9,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.TileOverlayOptions;
-import com.google.android.gms.maps.model.TileProvider;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +16,9 @@ import java.util.Map;
 
 import opgods.opcampus.MainActivity;
 import opgods.opcampus.R;
-import opgods.opcampus.maps.TileProviderFactory;
+import opgods.opcampus.ViewManager;
 import opgods.opcampus.util.AsyncTaskCompleteListener;
 import opgods.opcampus.util.Constants;
-import opgods.opcampus.util.GetAdapter;
 
 /**
  * Clase encargada de mostrar los marcadores de los profesores
@@ -30,7 +27,7 @@ import opgods.opcampus.util.GetAdapter;
  */
 public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
     private static TeacherMarkerManager instance = null;
-    private Activity activity;
+    private MainActivity activity;
     private GoogleMap map;
     private Map<String, Marker> markers;
     private Teacher teacherSearch;
@@ -43,7 +40,7 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
         return instance;
     }
 
-    private TeacherMarkerManager(Activity activity, GoogleMap map) {
+    private TeacherMarkerManager(MainActivity activity, GoogleMap map) {
         this.activity = activity;
         this.map = map;
         this.markers = new HashMap<>();
@@ -66,11 +63,7 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_whoknows));
                 }
                 String texto = teacher.getNombre() + "--" + teacher.getInfo() + "\nDisponible: ";
-                if (teacher.estaDisponible()) {
-                    texto += "sí";
-                } else {
-                    texto += "no";
-                }
+                texto = getDisponible(teacher, texto);
                 marker.setSnippet(texto);
                 markers.put(teacher.getDespacho(), marker);
             } else {
@@ -81,11 +74,7 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
                     icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_disable);
                 }
                 String texto = teacher.getNombre() + "--" + teacher.getInfo() + "\nDisponible: ";
-                if (teacher.estaDisponible()) {
-                    texto += "sí";
-                } else {
-                    texto += "no";
-                }
+                texto = getDisponible(teacher, texto);
                 markers.put(teacher.getDespacho(), map.addMarker(new MarkerOptions()
                         .position(teacher.getLocalizacion())
                         .title(texto)
@@ -95,6 +84,16 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
 
         showMarkersIfZoom();
         setMarkersVisibility();
+    }
+
+    @NonNull
+    private String getDisponible(Teacher teacher, String texto) {
+        if (teacher.estaDisponible()) {
+            texto += "sí";
+        } else {
+            texto += "no";
+        }
+        return texto;
     }
 
 
@@ -107,18 +106,10 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
         teacherSearch = teacher;
         final Marker marker = markers.get(teacher.getDespacho());
         if (marker == null) {
-            markers.clear();
-            map.clear();
-            TileProvider tileProvider = TileProviderFactory.getTileProvider(Constants.PLANTA + teacher.getPlanta(), Constants.DEFAULT_STYLE);
-            map.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
-            new GetAdapter(this).execute(Constants.PROFESORES + teacher.getPlanta());
-            activity.setTitle("Planta " + teacher.getPlanta());
+            ViewManager manager = activity.getViewManager();
+            manager.setFloor("Planta " + teacher.getPlanta(), String.valueOf(teacher.getPlanta()), Constants.PROFESORES + teacher.getPlanta());
         } else {
-            CameraPosition to =  new CameraPosition.Builder().target(marker.getPosition())
-                    .zoom(20f)
-                    .bearing(0)
-                    .tilt(0)
-                    .build();
+            CameraPosition to =  new CameraPosition.Builder().target(marker.getPosition()).zoom(20f).bearing(0).tilt(0).build();
             map.animateCamera(CameraUpdateFactory.newCameraPosition(to), new GoogleMap.CancelableCallback() {
                 @Override
                 public void onFinish() {
