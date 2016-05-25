@@ -107,7 +107,7 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
         final Marker marker = markers.get(teacher.getDespacho());
         if (marker == null) {
             ViewManager manager = activity.getViewManager();
-            manager.setFloor("Planta " + teacher.getPlanta(), String.valueOf(teacher.getPlanta()), Constants.PROFESORES + teacher.getPlanta());
+            manager.setFloor("Planta " + teacher.getPlanta(), Constants.PLANTA + teacher.getPlanta(), Constants.PROFESORES + teacher.getPlanta());
         } else {
             CameraPosition to =  new CameraPosition.Builder().target(marker.getPosition()).zoom(20f).bearing(0).tilt(0).build();
             map.animateCamera(CameraUpdateFactory.newCameraPosition(to), new GoogleMap.CancelableCallback() {
