@@ -129,8 +129,8 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7632509">
-              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.6360424">
+              <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -1648,7 +1648,7 @@
     <option name="modificationStamps">
       <map>
         <entry key="$USER_HOME$/Documents/workspaces/OPwar-Android" value="4385565001709" />
-        <entry key="$PROJECT_DIR$" value="4392620493067" />
+        <entry key="$PROJECT_DIR$" value="4392620867122" />
         <entry key="C:\Users\uzett\workspaces\LIS\Cliente" value="4388660512506" />
       </map>
     </option>
@@ -2535,12 +2535,6 @@
       <option name="number" value="Default" />
       <updated>1463328597129</updated>
     </task>
-    <task id="LOCAL-00003" summary="Información de profesores dado un nivel de zoom">
-      <created>1463832016066</created>
-      <option name="number" value="00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1463832016066</updated>
-    </task>
     <task id="LOCAL-00004" summary="Disponibilidad de profesores">
       <created>1463836446319</created>
       <option name="number" value="00004" />
@@ -2829,7 +2823,13 @@
       <option name="project" value="LOCAL" />
       <updated>1464209914626</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Ya queda poco para que funcione travis">
+      <created>1464210552899</created>
+      <option name="number" value="00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1464210552899</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2890,7 +2890,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cálculo de rutas desde punto fijo hasta plaza" />
     <MESSAGE value="Cálculo de rutas desde punto de acceso hasta plaza" />
     <MESSAGE value="Cambiado zoom parking" />
     <MESSAGE value="Somes tests" />
@@ -2915,7 +2914,8 @@
     <MESSAGE value="Poniendo api 21" />
     <MESSAGE value="Poniendo api 23" />
     <MESSAGE value="Apikey" />
-    <option name="LAST_COMMIT_MESSAGE" value="Apikey" />
+    <MESSAGE value="Ya queda poco para que funcione travis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ya queda poco para que funcione travis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3290,8 +3290,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7632509">
-          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.6360424">
+          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
           <folding />
         </state>
       </provider>

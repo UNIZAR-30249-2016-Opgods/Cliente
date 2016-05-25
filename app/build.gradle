@@ -19,9 +19,7 @@ android {
         }
     }
     lintOptions {
-
         abortOnError false
-
     }
 }
 
