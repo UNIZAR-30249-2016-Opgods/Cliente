@@ -12,15 +12,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ef192723-0635-4fb5-bf42-433092f554b4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="$PROJECT_DIR$/.travis.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/animated_vector_drawable_23_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/animated_vector_drawable_23_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/design_23_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/design_23_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_23_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_23_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_23_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_23_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_23_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_23_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_vector_drawable_23_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_vector_drawable_23_2_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Cliente.iws" />
@@ -97,8 +88,8 @@
       <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.83302414">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.7996289">
+              <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -2676,12 +2667,6 @@
       <option name="number" value="Default" />
       <updated>1463328597129</updated>
     </task>
-    <task id="LOCAL-00009" summary="Disponibilidad de profesores">
-      <created>1463914557197</created>
-      <option name="number" value="00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1463914557197</updated>
-    </task>
     <task id="LOCAL-00010" summary="Info de dos profesores y mapa de plazas">
       <created>1463926013718</created>
       <option name="number" value="00010" />
@@ -2970,7 +2955,13 @@
       <option name="project" value="LOCAL" />
       <updated>1464213665540</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Prueba Coverage">
+      <created>1464215438308</created>
+      <option name="number" value="00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1464215438308</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3031,7 +3022,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Y otra vez Travis" />
     <MESSAGE value="Travis" />
     <MESSAGE value="Travis + Android + Google Maps = Combinación ganadora" />
     <MESSAGE value="Arreglado bug de búsqueda de profesores" />
@@ -3056,7 +3046,8 @@
     <MESSAGE value="Ya queda poco para que funcione travis v212340526" />
     <MESSAGE value="Ya queda poco para que funcione travis v2123405262" />
     <MESSAGE value="Añadiendo Chapita al readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="Añadiendo Chapita al readme" />
+    <MESSAGE value="Prueba Coverage" />
+    <option name="LAST_COMMIT_MESSAGE" value="Prueba Coverage" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3431,8 +3422,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.83302414">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.7996289">
+          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
           <folding />
         </state>
       </provider>
