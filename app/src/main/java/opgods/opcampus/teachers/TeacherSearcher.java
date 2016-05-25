@@ -15,7 +15,7 @@ import opgods.opcampus.util.Constants;
 import opgods.opcampus.util.GetAdapter;
 
 /**
- * Created by URZU on 21/05/2016.
+ * Clase encargada de la función de autocomletado de profesores
  */
 public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchView.OnSuggestionListener, AsyncTaskCompleteListener<String> {
     private Context context;
@@ -36,11 +36,18 @@ public class TeacherSearcher implements SearchView.OnQueryTextListener, SearchVi
 
     @Override
     public boolean onQueryTextChange(String name) {
+        // realiza un petición cada vez que el usuario introduce una nueva letra
         new GetAdapter(this).execute(Constants.BUSCADOR_PROFESORES + name);
         return false;
     }
 
-    public void setTeachers(List<Teacher> teachers) {
+
+    /**
+     * Pobla la barra de autocompletado
+     *
+     * @param teachers profesores a mostrar
+     */
+    private void setTeachers(List<Teacher> teachers) {
         if (teachers != null) {
             // Cursor
             String[] columns = new String[] { "_id", "text" };

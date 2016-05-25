@@ -3,7 +3,7 @@ package opgods.opcampus.teachers;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * Created by URZU on 22/05/2016.
+ * Clase que representa un profesor
  */
 public class Teacher {
     private int id;

@@ -9,7 +9,7 @@ import com.akexorcist.googledirection.model.Route;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * Created by URZU on 21/05/2016.
+ * Clase que calcula las rutas mediante Google Maps API
  */
 public class RoutesCalculator {
     private SlotsMarkerManager manager;
@@ -18,6 +18,14 @@ public class RoutesCalculator {
         this.manager = manager;
     }
 
+
+    /**
+     * Calcula una ruta
+     *
+     * @param from lugar de origen
+     * @param to lugar de destino
+     * @param key clave de servidor para realizar la petición
+     */
     public void paintRoute(LatLng from, LatLng to, String key) {
         GoogleDirection.withServerKey(key)
                 .from(from)

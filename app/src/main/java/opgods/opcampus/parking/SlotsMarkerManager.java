@@ -26,9 +26,12 @@ import opgods.opcampus.util.Constants;
 import opgods.opcampus.util.GetAdapter;
 
 /**
- * Created by URZU on 21/05/2016.
+ * Clase encargada de mostrar los marcadores del parking
+ *
+ * Singleton
  */
-public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMarkerClickListener, AsyncTaskCompleteListener<String> {
+public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMarkerClickListener,
+        AsyncTaskCompleteListener<String> {
     private static SlotsMarkerManager instance = null;
     private GoogleMap map;
     private Activity activity;
@@ -56,6 +59,12 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
         this.map.setOnMarkerClickListener(this);
     }
 
+
+    /**
+     * Muestra en el mapa todas las secciones de parking
+     *
+     * @param slots con las secciones de parking
+     */
     private void loadSlotsMarkers(List<Slot> slots) {
         this.map.setInfoWindowAdapter(new SlotInfoWindow(this.context));
         this.slots.clear();
@@ -69,11 +78,18 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
         setMarkersVisibility();
     }
 
+
+    /**
+     * Muesra en el mapa todos los puntos de acceso
+     *
+     * @param access con los puntos de acceso
+     */
     public void loadAccessMarkers(List<LatLng> access) {
         for (LatLng a : access) {
             this.access.add(map.addMarker(new MarkerOptions().position(a)));
         }
     }
+
 
     /**
      * Muestra los marcadores si el nivel de zoom actual lo permite
@@ -85,6 +101,7 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
             }
         }
     }
+
 
     /**
      * Oculta los marcadores de los profesores en tiempo de ejecución según el nivel de zoom
@@ -100,19 +117,28 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
         });
     }
 
+
+    /**
+     * Muestra una ruta en el mapa
+     *
+     * @param route ruta a mostrat
+     */
     public void setRoute(ArrayList<LatLng> route) {
         PolylineOptions polylineOptions = DirectionConverter.createPolyline(context,
                 route, 5, ContextCompat.getColor(context, R.color.routes));
         this.route = map.addPolyline(polylineOptions);
     }
 
+
     @Override
     public void onInfoWindowClick(Marker marker) {
+        // comprueba que haya pulsado en la ventana de información de una plaza
         if (slots.contains(marker)) {
             lastClicked = marker;
             new GetAdapter(this).execute(Constants.ACCESOS);
             View parentLayout = activity.findViewById(R.id.drawer_layout);
             if (parentLayout != null) {
+                // borra una ruta si existe
                 if (route != null) {
                     route.remove();
                 }
@@ -129,12 +155,15 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        // comprueba que haya pulsado en un punto de acceso
         if (access.contains(marker)) {
             for (Marker a : access) {
+                // borra todos los puntos de acceso menos el pulsado
                 if (!a.equals(marker)) {
                     a.remove();
                 }
             }
+            // calcula la ruta
             RoutesCalculator routesCalculator = new RoutesCalculator(SlotsMarkerManager.this);
             LatLng from = marker.getPosition();
             LatLng to = lastClicked.getPosition();
@@ -143,6 +172,7 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
 
             return true;
         }
+        // sino comportamiento por defecto
         return false;
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
 import opgods.opcampus.R;
 
 /**
- * Created by URZU on 23/05/2016.
+ * Clase que pobla el autocompletado con los profesores
  */
 public class TeacherCursorAdapter extends CursorAdapter {
     private List<Teacher> teachers;
@@ -37,6 +37,13 @@ public class TeacherCursorAdapter extends CursorAdapter {
         text.setText(teachers.get(cursor.getPosition()).getNombre());
     }
 
+
+    /**
+     * Obtiene un profesor
+     *
+     * @param position posición pulsada
+     * @return profesor
+     */
     public Teacher getTeacher(int position) {
         return teachers.get(position);
     }

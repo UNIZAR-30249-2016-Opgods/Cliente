@@ -3,7 +3,7 @@ package opgods.opcampus.parking;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * Created by URZU on 22/05/2016.
+ * Clase que representa una sección de plazas del parking
  */
 public class Slot {
     private int id;

@@ -23,7 +23,9 @@ import opgods.opcampus.util.Constants;
 import opgods.opcampus.util.GetAdapter;
 
 /**
- * Created by URZU on 21/05/2016.
+ * Clase encargada de mostrar los marcadores de los profesores
+ *
+ * Singleton
  */
 public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
     private static TeacherMarkerManager instance = null;
@@ -47,6 +49,12 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
         this.map.setInfoWindowAdapter(new TeacherInfoWindow(activity.getApplicationContext()));
     }
 
+
+    /**
+     * Muestra los profesores en el mapa
+     *
+     * @param teachers profesores a mostrar
+     */
     private void loadMarkers(List<Teacher> teachers) {
         markers.clear();
         for (Teacher teacher : teachers) {
@@ -88,6 +96,12 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
         setMarkersVisibility();
     }
 
+
+    /**
+     * Muestra un profesor en el mapa y mueve la camara a su posición
+     *
+     * @param teacher
+     */
     public void loadMarker(Teacher teacher) {
         teacherSearch = teacher;
         final Marker marker = markers.get(teacher.getDespacho());
@@ -118,6 +132,7 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
         }
     }
 
+
     /**
      * Muestra los marcadores si el nivel de zoom actual lo permite
      */
@@ -128,6 +143,7 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
             }
         }
     }
+
 
     /**
      * Oculta los marcadores de los profesores en tiempo de ejecución según el nivel de zoom

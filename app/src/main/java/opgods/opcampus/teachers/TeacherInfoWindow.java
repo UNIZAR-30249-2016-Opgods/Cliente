@@ -11,7 +11,7 @@ import com.google.android.gms.maps.model.Marker;
 import opgods.opcampus.R;
 
 /**
- * Created by URZU on 22/05/2016.
+ * Ventana personalizada de información de un profesor
  */
 public class TeacherInfoWindow implements GoogleMap.InfoWindowAdapter {
     private final View myContentsView;
@@ -49,6 +49,12 @@ public class TeacherInfoWindow implements GoogleMap.InfoWindowAdapter {
         return null;
     }
 
+    /**
+     * Formatea la información del profesor
+     *
+     * @param data con la información
+     * @return array de Strings con nombre e información
+     */
     private String[] formatData(String data) {
         data = data.replace("; ", "\n").replace(":", ": ");
         return data.split("--");

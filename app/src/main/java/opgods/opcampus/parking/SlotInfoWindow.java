@@ -11,7 +11,7 @@ import com.google.android.gms.maps.model.Marker;
 import opgods.opcampus.R;
 
 /**
- * Created by URZU on 22/05/2016.
+ * Ventana personalizada de información de una plaza
  */
 public class SlotInfoWindow implements GoogleMap.InfoWindowAdapter {
     private final View myContentsView;
