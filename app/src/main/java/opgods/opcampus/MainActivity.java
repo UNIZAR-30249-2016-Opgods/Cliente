@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
-                sectionManager = new ViewManager(MainActivity.this, mMap);
+                sectionManager = new ViewManager(MainActivity.this);
             }
         });
 
@@ -92,12 +92,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setQueryHint("Buscar profesores...");
         searchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        TeacherSearcher searcher = new TeacherSearcher(MainActivity.this, searchView, TeacherMarkerManager.getInstance(MainActivity.this, mMap));
+        TeacherSearcher searcher = new TeacherSearcher(MainActivity.this, searchView, TeacherMarkerManager.getInstance(MainActivity.this));
         searchView.setOnQueryTextListener(searcher);
         searchView.setOnSuggestionListener(searcher);
         searchItem = menu.findItem(R.id.action_search);
         searchItem.setVisible(false);
-        sectionManager.initView(searchItem);
+        sectionManager.initView();
         return true;
     }
 
@@ -150,11 +150,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_parking) {
-            sectionManager.parkingView(searchItem);
+            sectionManager.parkingView();
         } else if (id == R.id.nav_teacher) {
-            sectionManager.teacherView(searchItem);
+            sectionManager.teacherView();
         } else if (id == R.id.nav_cafe) {
-            sectionManager.cafeView(searchItem);
+            sectionManager.cafeView();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -183,5 +183,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Uri.parse("android-app://opgods.opcampus/http/host/path"));
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    public GoogleMap getMap() {
+        return mMap;
+    }
+
+    public MenuItem getSearchItem() {
+        return searchItem;
     }
 }

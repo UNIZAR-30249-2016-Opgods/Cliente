@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import opgods.opcampus.MainActivity;
 import opgods.opcampus.R;
 import opgods.opcampus.util.AsyncTaskCompleteListener;
 import opgods.opcampus.util.Constants;
@@ -41,9 +42,9 @@ public class SlotsMarkerManager implements GoogleMap.OnInfoWindowClickListener, 
     private Polyline route;
     private Marker lastClicked;
 
-    public static SlotsMarkerManager getInstance(GoogleMap map, Activity activity) {
+    public static SlotsMarkerManager getInstance(MainActivity activity) {
         if (instance == null) {
-            instance = new SlotsMarkerManager(map, activity);
+            instance = new SlotsMarkerManager(activity.getMap(), activity);
         }
 
         return instance;

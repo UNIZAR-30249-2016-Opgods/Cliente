@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import opgods.opcampus.MainActivity;
 import opgods.opcampus.R;
 import opgods.opcampus.maps.TileProviderFactory;
 import opgods.opcampus.util.AsyncTaskCompleteListener;
@@ -34,9 +35,9 @@ public class TeacherMarkerManager implements AsyncTaskCompleteListener<String> {
     private Map<String, Marker> markers;
     private Teacher teacherSearch;
 
-    public static TeacherMarkerManager getInstance(Activity activity, GoogleMap map) {
+    public static TeacherMarkerManager getInstance(MainActivity activity) {
         if (instance == null) {
-            instance = new TeacherMarkerManager(activity, map);
+            instance = new TeacherMarkerManager(activity, activity.getMap());
         }
 
         return instance;

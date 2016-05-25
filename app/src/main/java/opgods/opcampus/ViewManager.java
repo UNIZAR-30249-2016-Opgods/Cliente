@@ -1,6 +1,5 @@
 package opgods.opcampus;
 
-import android.view.MenuItem;
 import android.view.View;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -36,9 +35,9 @@ public class ViewManager {
     private FloatingActionButton fabPlanta_4;
 
 
-    public ViewManager(MainActivity mainActivity, GoogleMap map) {
+    public ViewManager(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        this.map = map;
+        this.map = mainActivity.getMap();
         findViewsById();
         setButtonActions();
     }
@@ -60,63 +59,57 @@ public class ViewManager {
     /**
      * Inicializa la vista
      */
-    public void initView(MenuItem searchItem) {
+    public void initView() {
         faMenu.setClosedOnTouchOutside(true);
         faMenu.hideMenu(false);
         map.getUiSettings().setMapToolbarEnabled(false);
-        parkingView(searchItem);
+        parkingView();
     }
 
 
     /**
      * Muestra la configuración de la sección de parking
-     *
-     * @param searchItem item del menú para ocultarlo
      */
-    public void parkingView(MenuItem searchItem) {
-        new GetAdapter(SlotsMarkerManager.getInstance(map, mainActivity)).execute(Constants.PARKING);
+    public void parkingView() {
+        new GetAdapter(SlotsMarkerManager.getInstance(mainActivity)).execute(Constants.PARKING);
         map.setInfoWindowAdapter(new SlotInfoWindow(mainActivity.getApplicationContext()));
-        changeView(searchItem, false, mainActivity.getString(R.string.parking), 16, new LatLng(41.683662, -0.887611), Constants.PLAZAS, Constants.DEFAULT_STYLE);
+        changeView(false, mainActivity.getString(R.string.parking), 16, new LatLng(41.683662, -0.887611), Constants.PLAZAS, Constants.DEFAULT_STYLE);
     }
 
 
     /**
      * Muestra la configuración de la sección de profesores
      *
-     * @param searchItem item del menú para mostrarlo
      */
-    public void teacherView(MenuItem searchItem) {
-        new GetAdapter(TeacherMarkerManager.getInstance(mainActivity, map)).execute(Constants.PROFESORES_P0);
+    public void teacherView() {
+        new GetAdapter(TeacherMarkerManager.getInstance(mainActivity)).execute(Constants.PROFESORES_P0);
         map.setInfoWindowAdapter(new TeacherInfoWindow(mainActivity.getApplicationContext()));
-        changeView(searchItem, true, "Planta 0", 19, new LatLng(41.683982, -0.888867), Constants.PLANTA_0, Constants.DEFAULT_STYLE);
+        changeView(true, "Planta 0", 19, new LatLng(41.683982, -0.888867), Constants.PLANTA_0, Constants.DEFAULT_STYLE);
         faMenu.showMenu(false);
     }
 
 
     /**
      * Muestra la configuración de la sección de cafetería
-     *
-     * @param searchItem item del menú para ocultarlo
      */
-    public void cafeView(MenuItem searchItem) {
-        new GetAdapter(CafeMarkerManager.getInstance(map)).execute(Constants.CAFETERIA);
-        changeView(searchItem, false, mainActivity.getString(R.string.cafe), 20, new LatLng(41.683646, -0.888620), Constants.PLANTA_0, Constants.CAFE_STYLE);
+    public void cafeView() {
+        new GetAdapter(CafeMarkerManager.getInstance(mainActivity)).execute(Constants.CAFETERIA);
+        changeView(false, mainActivity.getString(R.string.cafe), 20, new LatLng(41.683646, -0.888620), Constants.PLANTA_0, Constants.CAFE_STYLE);
     }
 
 
     /**
      * Cambia los elementos de la vista
      *
-     * @param searchItem item del menú
      * @param searchVisibility ocultar/mostrar searchItem
      * @param title título del activity
      * @param zoom nivel de zoom del mapa
      * @param place lugar a mostrar en el mapa
      * @param layer capa a pedir al Geoserver
      */
-    private void changeView(MenuItem searchItem, boolean searchVisibility, String title, int zoom,
+    private void changeView(boolean searchVisibility, String title, int zoom,
                             LatLng place, String layer, String style) {
-        searchItem.setVisible(searchVisibility);
+        mainActivity.getSearchItem().setVisible(searchVisibility);
         map.clear();
         mainActivity.setTitle(title);
         faMenu.hideMenu(false);
@@ -177,6 +170,6 @@ public class ViewManager {
         TileProvider tileProvider = TileProviderFactory.getTileProvider(planta, Constants.DEFAULT_STYLE);
         map.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
         faMenu.close(true);
-        new GetAdapter(TeacherMarkerManager.getInstance(mainActivity, map)).execute(profesores);
+        new GetAdapter(TeacherMarkerManager.getInstance(mainActivity)).execute(profesores);
     }
 }

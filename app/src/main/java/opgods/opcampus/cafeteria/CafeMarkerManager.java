@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import opgods.opcampus.MainActivity;
 import opgods.opcampus.R;
 import opgods.opcampus.util.AsyncTaskCompleteListener;
 import opgods.opcampus.util.Constants;
@@ -23,9 +24,9 @@ public class CafeMarkerManager implements AsyncTaskCompleteListener<String> {
     private GoogleMap map;
     private List<Marker> cafes;
 
-    public static CafeMarkerManager getInstance(GoogleMap map) {
+    public static CafeMarkerManager getInstance(MainActivity mainActivity) {
         if (instance == null) {
-            instance = new CafeMarkerManager(map);
+            instance = new CafeMarkerManager(mainActivity.getMap());
         }
 
         return instance;
